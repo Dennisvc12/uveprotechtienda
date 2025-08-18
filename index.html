@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>UVEPROTECH - Venta de Celulares</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { margin:0; font-family:Arial, sans-serif; background:#f9f9f9; }
+    header { background:#005bbb; color:#fff; padding:15px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; }
+    header h1 { margin:0; font-size:22px; cursor:pointer; }
+    nav { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+    nav a { color:#fff; text-decoration:none; font-weight:bold; cursor:pointer; }
+    .carrito { font-size:18px; margin-left:10px; }
+    .buscador { padding:5px; border-radius:5px; border:1px solid #ccc; }
+    .container { padding:20px; }
+    .oferta { background:yellow; padding:15px; margin-bottom:20px; border-radius:10px; font-weight:bold; }
+    .productos { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:15px; }
+    .card { background:#fff; padding:15px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1); text-align:center; }
+    .card img { width:100%; max-width:180px; height:auto; margin-bottom:10px; border-radius:8px; }
+    .card button { margin:5px; padding:8px 10px; border:none; border-radius:5px; cursor:pointer; }
+    .btn-cart { background:#005bbb; color:#fff; }
+    .btn-wa { background:#25D366; color:#fff; }
+    footer { background:#005bbb; color:#fff; text-align:center; padding:10px; margin-top:20px; }
+    @media (max-width:600px) {
+      header { flex-direction:column; align-items:flex-start; }
+      nav { justify-content:flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 onclick="navigate('inicio')">UVEPROTECH</h1>
+    <nav>
+      <a onclick="navigate('inicio')">Inicio</a>
+      <a onclick="navigate('economicos')">Económicos</a>
+      <a onclick="navigate('gama')">Gama Media</a>
+      <a onclick="navigate('iphones')">iPhones</a>
+      <input type="text" id="buscar" class="buscador" placeholder="Buscar producto">
+      <span class="carrito">🛒 <span id="cartCount">0</span></span>
+    </nav>
+  </header>
+
+  <div class="container" id="content"></div>
+
+  <footer>© 2025 UVEPROTECH - Venta de celulares</footer>
+
+<script>
+let carrito = [];
+
+const productos = {
+  economicos: [
+    {nombre:"Xiaomi Redmi A3 - 3GB/64GB", precio:399, img:"https://via.placeholder.com/180?text=Redmi+A3"},
+    {nombre:"Xiaomi Redmi A3x - 3GB/64GB", precio:389, img:"https://via.placeholder.com/180?text=Redmi+A3x"},
+    {nombre:"Xiaomi Redmi 14C - 4GB/128GB", precio:550, img:"https://via.placeholder.com/180?text=Redmi+14C"},
+    {nombre:"Xiaomi Redmi 14C - 8GB/256GB", precio:749, img:"https://via.placeholder.com/180?text=Redmi+14C+256"},
+    {nombre:"Samsung Galaxy A06 - 4GB/64GB", precio:439, img:"https://via.placeholder.com/180?text=Galaxy+A06"},
+    {nombre:"Samsung Galaxy A16 - 8GB/256GB", precio:899, img:"https://via.placeholder.com/180?text=Galaxy+A16"},
+    {nombre:"Samsung Galaxy A03 - 4GB/64GB", precio:420, img:"https://via.placeholder.com/180?text=Galaxy+A03"},
+    {nombre:"Honor X6B - 6GB/256GB", precio:650, img:"https://via.placeholder.com/180?text=Honor+X6B"},
+    {nombre:"Honor X5 Plus - 4GB/128GB", precio:599, img:"https://via.placeholder.com/180?text=Honor+X5+Plus"},
+    {nombre:"Motorola E14 - 2GB/64GB", precio:399, img:"https://via.placeholder.com/180?text=E14"},
+    {nombre:"Motorola E22 - 4GB/64GB", precio:499, img:"https://via.placeholder.com/180?text=E22"},
+    {nombre:"ZTE A34 - 3GB/64GB", precio:380, img:"https://via.placeholder.com/180?text=ZTE+A34"},
+    {nombre:"ZTE Blade A54 - 4GB/128GB", precio:470, img:"https://via.placeholder.com/180?text=Blade+A54"},
+    {nombre:"Tecno Spark 30 Pro - 8GB/256GB", precio:850, img:"https://via.placeholder.com/180?text=Spark+30Pro"},
+    {nombre:"Tecno Pova Neo 3 - 6GB/128GB", precio:760, img:"https://via.placeholder.com/180?text=Pova+Neo+3"},
+    {nombre:"Realme C51 - 4GB/128GB", precio:620, img:"https://via.placeholder.com/180?text=Realme+C51"},
+    {nombre:"Infinix Hot 40i - 8GB/256GB", precio:780, img:"https://via.placeholder.com/180?text=Hot+40i"},
+    {nombre:"Huawei Y6p - 3GB/64GB", precio:499, img:"https://via.placeholder.com/180?text=Huawei+Y6p"},
+    {nombre:"Huawei Nova Y70 - 4GB/128GB", precio:650, img:"https://via.placeholder.com/180?text=Nova+Y70"},
+    {nombre:"Alcatel 1SE - 3GB/32GB", precio:350, img:"https://via.placeholder.com/180?text=Alcatel+1SE"}
+  ],
+  gama: [
+    {nombre:"Xiaomi Redmi Note 14 - 6GB/128GB", precio:849, img:"https://via.placeholder.com/180?text=Note+14"},
+    {nombre:"Xiaomi Redmi Note 14 Pro 5G - 8GB/256GB", precio:1479, img:"https://via.placeholder.com/180?text=Note+14+Pro"},
+    {nombre:"Xiaomi Redmi Note 13 - 6GB/128GB", precio:1050, img:"https://via.placeholder.com/180?text=Note+13"},
+    {nombre:"Xiaomi Redmi Note 13 Pro - 8GB/256GB", precio:1290, img:"https://via.placeholder.com/180?text=Note+13Pro"},
+    {nombre:"Xiaomi Poco F6 - 12GB/512GB", precio:1690, img:"https://via.placeholder.com/180?text=Poco+F6"},
+    {nombre:"Xiaomi Poco F6 Pro - 12GB/512GB", precio:2099, img:"https://via.placeholder.com/180?text=Poco+F6+Pro"},
+    {nombre:"Samsung Galaxy A25 5G - 6GB/128GB", precio:990, img:"https://via.placeholder.com/180?text=Galaxy+A25"},
+    {nombre:"Samsung Galaxy A35 5G - 8GB/256GB", precio:1449, img:"https://via.placeholder.com/180?text=Galaxy+A35"},
+    {nombre:"Samsung Galaxy A55 5G - 8GB/128GB", precio:1699, img:"https://via.placeholder.com/180?text=Galaxy+A55"},
+    {nombre:"Samsung Galaxy M14 - 6GB/128GB", precio:890, img:"https://via.placeholder.com/180?text=Galaxy+M14"},
+    {nombre:"Honor 200 Lite - 8GB/256GB", precio:1160, img:"https://via.placeholder.com/180?text=Honor+200Lite"},
+    {nombre:"Honor Magic 6 Lite - 8GB/256GB", precio:1450, img:"https://via.placeholder.com/180?text=Magic+6Lite"},
+    {nombre:"Motorola G85 5G - 8GB/256GB", precio:1159, img:"https://via.placeholder.com/180?text=G85+5G"},
+    {nombre:"Motorola Edge 40 Neo - 8GB/256GB", precio:1340, img:"https://via.placeholder.com/180?text=Edge+40+Neo"},
+    {nombre:"ZTE Nubia Focus Pro 5G - 8GB/256GB", precio:1259, img:"https://via.placeholder.com/180?text=Nubia+Pro"},
+    {nombre:"Realme 12+ 5G - 8GB/256GB", precio:1350, img:"https://via.placeholder.com/180?text=Realme+12+"},
+    {nombre:"Infinix Zero Ultra - 8GB/256GB", precio:1200, img:"https://via.placeholder.com/180?text=Zero+Ultra"},
+    {nombre:"Oppo Reno 11 - 8GB/256GB", precio:1450, img:"https://via.placeholder.com/180?text=Reno+11"},
+    {nombre:"Vivo V29 - 8GB/256GB", precio:1550, img:"https://via.placeholder.com/180?text=Vivo+V29"},
+    {nombre:"Huawei Nova 12 - 8GB/256GB", precio:1350, img:"https://via.placeholder.com/180?text=Nova+12"}
+  ],
+  iphones: [
+    {nombre:"iPhone 12 - 4GB/128GB", precio:1900, img:"https://via.placeholder.com/180?text=iPhone+12"},
+    {nombre:"iPhone 12 Pro - 6GB/128GB", precio:2200, img:"https://via.placeholder.com/180?text=iPhone+12Pro"},
+    {nombre:"iPhone 13 - 4GB/128GB", precio:2349, img:"https://via.placeholder.com/180?text=iPhone+13"},
+    {nombre:"iPhone 13 Pro - 6GB/128GB", precio:2600, img:"https://via.placeholder.com/180?text=iPhone+13Pro"},
+    {nombre:"iPhone 14 - 6GB/128GB", precio:2799, img:"https://via.placeholder.com/180?text=iPhone+14"},
+    {nombre:"iPhone 14 Plus - 6GB/256GB", precio:3300, img:"https://via.placeholder.com/180?text=iPhone+14Plus"},
+    {nombre:"iPhone 15 - 6GB/128GB", precio:3099, img:"https://via.placeholder.com/180?text=iPhone+15"},
+    {nombre:"iPhone 15 Plus - 6GB/256GB", precio:3590, img:"https://via.placeholder.com/180?text=iPhone+15Plus"},
+    {nombre:"iPhone 15 Pro - 8GB/128GB", precio:4200, img:"https://via.placeholder.com/180?text=iPhone+15Pro"},
+    {nombre:"iPhone 15 Pro Max - 8GB/256GB", precio:5149, img:"https://via.placeholder.com/180?text=iPhone+15PM"},
+    {nombre:"iPhone 16 - 8GB/128GB", precio:3460, img:"https://via.placeholder.com/180?text=iPhone+16"},
+    {nombre:"iPhone 16 - 8GB/256GB", precio:4349, img:"https://via.placeholder.com/180?text=iPhone+16+256"},
+    {nombre:"iPhone 16 Pro - 8GB/128GB", precio:4799, img:"https://via.placeholder.com/180?text=iPhone+16Pro"},
+    {nombre:"iPhone 16 Pro - 8GB/256GB", precio:4990, img:"https://via.placeholder.com/180?text=iPhone+16Pro+256"},
+    {nombre:"iPhone 16 Pro Max - 8GB/256GB", precio:5699, img:"https://via.placeholder.com/180?text=iPhone+16PM"},
+    {nombre:"iPhone 16 Pro Max - 8GB/512GB", precio:6490, img:"https://via.placeholder.com/180?text=iPhone+16PM+512"},
+    {nombre:"iPhone SE 2022 - 4GB/64GB", precio:1450, img:"https://via.placeholder.com/180?text=iPhone+SE"},
+    {nombre:"iPhone XR - 3GB/64GB", precio:1200, img:"https://via.placeholder.com/180?text=iPhone+XR"},
+    {nombre:"iPhone XS - 4GB/64GB", precio:1350, img:"https://via.placeholder.com/180?text=iPhone+XS"},
+    {nombre:"iPhone 11 - 4GB/128GB", precio:1700, img:"https://via.placeholder.com/180?text=iPhone+11"}
+  ]
+};
+
+function renderOferta(){
+  return `
+    <div class="oferta">
+      📢 Ofertas Especiales:<br>
+      - iPhone 14 - S/2,799<br>
+      - Samsung Galaxy A35 5G - S/1,299<br>
+      - Xiaomi Redmi A3x - S/389
+    </div>`;
+}
+function renderProductos(lista){
+  return `<div class="productos">`+lista.map(p=>`
+    <div class="card">
+      <img src="${p.img}" alt="${p.nombre}">
+      <h3>${p.nombre}</h3>
+      <p><b>S/${p.precio}</b></p>
+      <button class="btn-cart" onclick="addCart('${p.nombre}')">Agregar al carrito</button>
+      <a href="https://wa.me/51949030039?text=Hola,%20me%20interesa%20${encodeURIComponent(p.nombre)}" target="_blank">
+        <button class="btn-wa">WhatsApp</button>
+      </a>
+    </div>`).join('')+`</div>`;
+}
+function navigate(page){
+  let html="";
+  if(page==="inicio"){html=renderOferta()+"<h2>Bienvenido a UVEPROTECH</h2><p>Explora nuestras gamas de celulares.</p>";}
+  else if(page==="economicos"){html=renderOferta()+"<h2>Celulares Económicos</h2>"+renderProductos(productos.economicos);}
+  else if(page==="gama"){html=renderOferta()+"<h2>Celulares Gama Media</h2>"+renderProductos(productos.gama);}
+  else if(page==="iphones"){html=renderOferta()+"<h2>iPhones</h2>"+renderProductos(productos.iphones);}
+  document.getElementById("content").innerHTML=html;
+}
+function addCart(nombre){
+  carrito.push(nombre);
+  document.getElementById("cartCount").innerText=carrito.length;
+  alert(nombre+" agregado al carrito");
+}
+document.getElementById("buscar").addEventListener("input",function(){
+  const term=this.value.toLowerCase();
+  let res=[];
+  Object.values(productos).forEach(lista=>{
+    res=res.concat(lista.filter(p=>p.nombre.toLowerCase().includes(term)));
+  });
+  document.getElementById("content").innerHTML=renderOferta()+"<h2>Resultados de búsqueda</h2>"+renderProductos(res);
+});
+navigate('inicio');
+</script>
+</body>
+</html>
