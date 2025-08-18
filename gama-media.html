@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UVEPROTECH - Gama Media</title>
+<style>
+  body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f2f7fb; color:#333; }
+  header { background:#4a90e2; color:#fff; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;}
+  header h1 { margin:0; font-size:1.5em; cursor:pointer; }
+  nav a { color:#fff; margin-left:15px; text-decoration:none; font-weight:bold; }
+  nav a:hover { text-decoration:underline; }
+  .container { padding:20px; max-width:1200px; margin:auto; }
+  .products { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
+  .card { background:#fff; border-radius:8px; padding:15px; width:220px; box-shadow:0 2px 5px rgba(0,0,0,0.1); display:flex; flex-direction:column; justify-content:space-between; }
+  .card h2 { font-size:1em; margin:5px 0; }
+  .price { font-weight:bold; margin:5px 0; }
+  .old-price { text-decoration:line-through; color:#888; font-size:0.9em; margin-right:5px; }
+  .btn { background:#4a90e2; color:#fff; border:none; padding:8px; margin-top:5px; cursor:pointer; border-radius:4px; }
+  .btn:hover { background:#357ABD; }
+  .whatsapp { background:#25D366; margin-top:5px; }
+  .cart { position:fixed; top:15px; right:20px; background:red; color:#fff; padding:5px 10px; border-radius:50%; font-weight:bold; }
+  @media(max-width:600px){ header { flex-direction:column; align-items:flex-start;} nav { margin-top:10px; } .products { flex-direction:column; align-items:center;} }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 onclick="window.location.href='index.html'">UVEPROTECH</h1>
+  <nav>
+    <a href="index.html">Gama Baja</a>
+    <a href="gama-media.html">Gama Media</a>
+    <a href="gama-alta.html">Gama Alta</a>
+  </nav>
+  <div class="cart" id="cart-count">0</div>
+</header>
+
+<div class="container">
+  <div class="products" id="products-container">
+    <!-- Productos Gama Media -->
+  </div>
+</div>
+
+<script>
+const cartCountEl = document.getElementById('cart-count');
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+cartCountEl.innerText = cart.length;
+
+const gamaMedia = [
+  // Xiaomi y Poco gama media
+  {nombre:'Poco M7 PRO 8GB 255GB', precio:1000, old:1120},
+  {nombre:'Poco X7 Pro 12GB 512GB', precio:1490, old:1610},
+  {nombre:'Poco X7 Pro 12GB 256GB', precio:1420, old:1540},
+  {nombre:'POCO F7 12GB 512GB', precio:2000, old:2120},
+  {nombre:'POCO F7 PRO 12GB 512GB', precio:2120, old:2240},
+  {nombre:'POCO F7 ULTRA 16GB 256GB', precio:2770, old:2890},
+  {nombre:'Redmi Note 14 6GB 128GB', precio:769, old:879},
+  {nombre:'Redmi Note 14 8GB 256GB', precio:859, old:969},
+  {nombre:'Redmi Note 14S 8GB 256GB', precio:1009, old:1119},
+  {nombre:'Redmi Note 14 PRO 4G 8GB 256GB', precio:1169, old:1279},
+  {nombre:'Redmi Note 14 PRO 5G 8GB 256GB', precio:1300, old:1410},
+  {nombre:'Redmi Note 14 PRO PLUS 5G 8GB 256GB', precio:1509, old:1619},
+  {nombre:'Redmi Note 14 PRO PLUS 5G 12GB 512GB', precio:1609, old:1719},
+  {nombre:'Redmi NOTE 13 PRO PLUS 5G 8/256GB', precio:1400, old:1510},
+  {nombre:'Redmi NOTE 13 PRO PLUS 5G 12/512GB', precio:1470, old:1580},
+  {nombre:'Galaxy A56 5G 12GB 256GB', precio:1610, old:1720},
+  {nombre:'Galaxy A56 5G 8GB 256GB', precio:1550, old:1660},
+  {nombre:'Galaxy A36 5G 8GB 256GB', precio:1320, old:1430},
+  {nombre:'Galaxy A36 5G 6GB 128GB', precio:1270, old:1380},
+  {nombre:'Galaxy A26 5G 8GB 256GB', precio:1110, old:1220},
+  {nombre:'Galaxy A26 5G 6GB 128GB', precio:980, old:1090},
+  {nombre:'Galaxy A55 5G 8GB 256GB', precio:1410, old:1520},
+  {nombre:'Galaxy A55 5G 8GB 128GB', precio:1270, old:1380},
+  {nombre:'Galaxy A16 8GB 256GB', precio:860, old:970},
+  {nombre:'Galaxy A16 4GB 128GB', precio:709, old:819},
+  {nombre:'Galaxy A06 4GB 64GB', precio:490, old:600},
+  {nombre:'Galaxy A06 4GB 128GB', precio:609, old:719},
+  {nombre:'Honor 400 Lite 8GB 256GB', precio:1060, old:1170},
+  {nombre:'Honor 400 12GB 256GB', precio:1560, old:1670},
+  {nombre:'Honor 400 12GB 512GB', precio:1760, old:1870},
+  {nombre:'Honor 200 Pro 12GB 512GB', precio:2260, old:2370},
+  {nombre:'Honor Magic 7 Lite 8GB 256GB', precio:1310, old:1420},
+  {nombre:'Honor Magic 7 Lite 8GB 512GB', precio:1410, old:1520},
+  {nombre:'Infinix GT 30 PRO 12GB 256GB', precio:1359, old:1469},
+  {nombre:'Infinix GT 30 PRO 12GB 256GB (KIT GAMER)', precio:1459, old:1569},
+  {nombre:'Infinix GT 30 PRO 12GB 512GB', precio:1459, old:1569},
+  {nombre:'Infinix GT 30 PRO 12GB 512GB (KIT GAMER)', precio:1609, old:1719},
+];
+
+function renderProducts(){
+  const container = document.getElementById('products-container');
+  container.innerHTML='';
+  gamaMedia.forEach(p=>{
+    const card = document.createElement('div');
+    card.className='card';
+    card.innerHTML=`
+      <h2>${p.nombre}</h2>
+      <div class="price"><span class="old-price">S/${p.old}</span> S/${p.precio}</div>
+      <button class="btn" onclick="addToCart('${p.nombre}',${p.precio})">Agregar al carrito</button>
+      <button class="btn whatsapp" onclick="window.open('https://wa.me/51949030039?text=Hola,%20quiero%20comprar%20el%20producto%20${encodeURIComponent(p.nombre)}')">WhatsApp</button>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function addToCart(name, price){
+  cart.push({name,price});
+  localStorage.setItem('cart',JSON.stringify(cart));
+  cartCountEl.innerText = cart.length;
+  alert(`${name} agregado al carrito`);
+}
+
+renderProducts();
+</script>
+
+</body>
+</html>
