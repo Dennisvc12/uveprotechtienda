@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UVEPROTECH - Tienda de Celulares</title>
+<style>
+/* Reset y base */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{background:#f5f5f5;color:#333;}
+a{text-decoration:none;color:white;}
+
+/* Header */
+header{background:#1a1a1a;color:white;padding:15px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;}
+header h1{font-size:1.8em;}
+nav a{margin:0 10px;padding:8px 15px;background:#ff9900;border-radius:5px;transition:0.3s;}
+nav a:hover{background:#e68a00;}
+
+/* Oferta */
+.oferta{background:yellow;color:black;text-align:center;font-weight:bold;padding:10px;margin:10px 0;border-radius:5px;font-size:1.1em;}
+
+/* Contenedor productos */
+.container{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px;padding:15px;}
+.card{background:white;padding:15px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,0.1);position:relative;display:flex;flex-direction:column;justify-content:space-between;}
+.card h2{font-size:1.1em;margin-bottom:10px;}
+.price{font-weight:bold;color:#1a73e8;margin-bottom:5px;}
+.price span{text-decoration:line-through;color:#888;margin-right:8px;font-weight:normal;}
+button{padding:8px 12px;margin:5px 5px 0 0;border:none;border-radius:5px;background:#1a73e8;color:white;cursor:pointer;transition:0.3s;}
+button:hover{background:#155ab6;}
+button.whatsapp{background:#25D366;}
+footer{background:#1a1a1a;color:white;text-align:center;padding:20px;margin-top:20px;border-top:3px solid #ff9900;}
+.search-container{padding:10px;text-align:center;}
+input#search-bar{padding:8px;width:90%;max-width:400px;border-radius:5px;border:1px solid #ccc;}
+
+/* Responsive */
+@media(max-width:600px){
+    header h1{font-size:1.4em;}
+    nav a{margin:5px 5px;padding:6px 10px;font-size:0.9em;}
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>UVEPROTECH</h1>
+    <nav>
+        <a href="index.html?gama=baja">Gama Baja</a>
+        <a href="index.html?gama=media">Gama Media</a>
+        <a href="index.html?gama=alta">Gama Alta</a>
+    </nav>
+    <div>Carrito: <span id="cart-count">0</span></div>
+</header>
+
+<div class="oferta">¡Oferta Especial de Agosto! Precios Bajos Limitados 🔥</div>
+
+<div class="search-container">
+    <input type="text" id="search-bar" placeholder="Buscar producto...">
+</div>
+
+<div class="container" id="products-container">
+    <!-- Los productos se cargarán aquí mediante JS -->
+</div>
+
+<footer>
+    Contacto: WhatsApp +51949030039 | © 2025 UVEPROTECH
+</footer>
+
+<script>
+// Datos de productos
+const products = [
+    // Gama Baja
+    {gama:'baja', marca:'Redmi', nombre:'Redmi A5 4GB 64GB', precio:340, tachado:460, whatsapp:true},
+    {gama:'baja', marca:'Redmi', nombre:'Redmi A5 4GB 128GB', precio:390, tachado:500, whatsapp:true},
+    {gama:'baja', marca:'Redmi', nombre:'Redmi 14C 4GB 128GB', precio:390, tachado:480, whatsapp:true},
+    {gama:'baja', marca:'Redmi', nombre:'Redmi 14C 4GB 256GB', precio:460, tachado:560, whatsapp:true},
+    {gama:'baja', marca:'Poco', nombre:'Poco C71 4GB 128GB', precio:450, tachado:580, whatsapp:true},
+    {gama:'baja', marca:'Infinix', nombre:'Infinix Note 50 Pro 8/256', precio:1019, tachado:1150, whatsapp:true},
+    {gama:'baja', marca:'Motorola', nombre:'Motorola G04s 4GB 128GB', precio:550, tachado:650, whatsapp:true},
+    {gama:'baja', marca:'Motorola', nombre:'Motorola E14 2GB 64GB', precio:470, tachado:550, whatsapp:true},
+    {gama:'baja', marca:'Tecno', nombre:'Tecno Spark GO 2024 3GB 64GB', precio:490, tachado:580, whatsapp:true},
+    // Gama Media
+    {gama:'media', marca:'Redmi', nombre:'Redmi Note 14 6GB 128GB', precio:769, tachado:900, whatsapp:true},
+    {gama:'media', marca:'Redmi', nombre:'Redmi Note 14 8GB 256GB', precio:859, tachado:1000, whatsapp:true},
+    {gama:'media', marca:'Poco', nombre:'Poco X7 Pro 12GB 256GB', precio:1420, tachado:1600, whatsapp:true},
+    {gama:'media', marca:'Samsung', nombre:'Galaxy A36 5G 8GB 256GB', precio:1220, tachado:1350, whatsapp:true},
+    {gama:'media', marca:'Honor', nombre:'Honor X8C 8+256GB', precio:970, tachado:1100, whatsapp:true},
+    // Gama Alta
+    {gama:'alta', marca:'Xiaomi', nombre:'Xiaomi 15 512GB', precio:3149, tachado:3499, whatsapp:true},
+    {gama:'alta', marca:'Xiaomi', nombre:'Xiaomi 15 Ultra 16/512GB', precio:4699, tachado:5000, whatsapp:true},
+    {gama:'alta', marca:'Samsung', nombre:'Galaxy S25 Ultra 12/512', precio:3900, tachado:4300, whatsapp:true},
+    {gama:'alta', marca:'iPhone', nombre:'iPhone 16 Pro Max 512GB', precio:5550, tachado:6000, whatsapp:true},
+];
+
+// Leer parámetro de URL
+function getGamaFromURL(){
+    const params = new URLSearchParams(window.location.search);
+    return params.get('gama') || 'baja';
+}
+
+// Renderizar productos según gama
+function renderProducts(){
+    const gama = getGamaFromURL();
+    const container = document.getElementById('products-container');
+    container.innerHTML = '';
+    products.filter(p=>p.gama===gama).forEach(p=>{
+        const card = document.createElement('div');
+        card.className='card';
+        card.innerHTML=`
+            <h2>${p.marca} - ${p.nombre}</h2>
+            <div class="price"><span>S/${p.tachado}</span>S/${p.precio}</div>
+            <div>
+                <button class="add-cart">Agregar al carrito</button>
+                ${p.whatsapp?`<button class="whatsapp" onclick="window.open('https://wa.me/51949030039?text=Hola,%20quiero%20información%20de%20${encodeURIComponent(p.nombre)}')">WhatsApp</button>`:''}
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+// Carrito
+let cartCount = 0;
+document.addEventListener('click', (e)=>{
+    if(e.target.classList.contains('add-cart')){
+        cartCount++;
+        document.getElementById('cart-count').textContent = cartCount;
+        alert('Producto agregado al carrito!');
+    }
+});
+
+// Buscador
+document.getElementById('search-bar').addEventListener('input', function(){
+    const filter = this.value.toLowerCase();
+    document.querySelectorAll('.container .card').forEach(card=>{
+        const title = card.querySelector('h2').textContent.toLowerCase();
+        card.style.display = title.includes(filter) ? '' : 'none';
+    });
+});
+
+// Inicializar
+renderProducts();
+</script>
+
+</body>
+</html>
