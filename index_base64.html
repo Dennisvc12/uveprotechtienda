@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>UVEPROTECH - Venta de Celulares</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { margin:0; font-family:Arial, sans-serif; background:#f9f9f9; }
+    header { background:#005bbb; color:#fff; padding:15px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; }
+    header h1 { margin:0; font-size:22px; cursor:pointer; }
+    nav { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+    nav a { color:#fff; text-decoration:none; font-weight:bold; cursor:pointer; }
+    .carrito { font-size:18px; margin-left:10px; }
+    .buscador { padding:5px; border-radius:5px; border:1px solid #ccc; }
+    .container { padding:20px; }
+    .oferta { background:yellow; padding:15px; margin-bottom:20px; border-radius:10px; font-weight:bold; }
+    .productos { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:15px; }
+    .card { background:#fff; padding:15px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1); text-align:center; }
+    .card img { width:100%; max-width:180px; height:auto; margin-bottom:10px; border-radius:8px; }
+    .card button { margin:5px; padding:8px 10px; border:none; border-radius:5px; cursor:pointer; }
+    .btn-cart { background:#005bbb; color:#fff; }
+    .btn-wa { background:#25D366; color:#fff; }
+    footer { background:#005bbb; color:#fff; text-align:center; padding:10px; margin-top:20px; }
+    @media (max-width:600px) {
+      header { flex-direction:column; align-items:flex-start; }
+      nav { justify-content:flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 onclick="navigate('inicio')">UVEPROTECH</h1>
+    <nav>
+      <a onclick="navigate('inicio')">Inicio</a>
+      <a onclick="navigate('economicos')">Económicos</a>
+      <a onclick="navigate('gama')">Gama Media</a>
+      <a onclick="navigate('iphones')">iPhones</a>
+      <input type="text" id="buscar" class="buscador" placeholder="Buscar producto">
+      <span class="carrito">🛒 <span id="cartCount">0</span></span>
+    </nav>
+  </header>
+
+  <div class="container" id="content"></div>
+
+  <footer>© 2025 UVEPROTECH - Venta de celulares</footer>
+
+<script>
+  let carrito = [];
+
+  function renderOferta() {
+    return `
+      <div class="oferta">
+        📢 Ofertas Especiales:<br>
+        - iPhone 14 - S/2,799<br>
+        - Samsung Galaxy A35 5G - S/1,299<br>
+        - Xiaomi Redmi A3x - S/389
+      </div>`;
+  }
+
+  function renderProductos(lista) {
+    return `<div class="productos">` + lista.map(p => `
+      <div class="card">
+        <img src="${p.img}" alt="${p.nombre}">
+        <h3>${p.nombre}</h3>
+        <p><b>S/${p.precio}</b></p>
+        <button class="btn-cart" onclick="addCart('${p.nombre}')">Agregar al carrito</button>
+        <a href="https://wa.me/51949030039?text=Hola,%20me%20interesa%20${encodeURIComponent(p.nombre)}" target="_blank">
+          <button class="btn-wa">WhatsApp</button>
+        </a>
+      </div>`).join('') + `</div>`;
+  }
+
+  function navigate(page) {
+    let html = "";
+    if(page==="inicio"){
+      html = renderOferta() + "<h2>Bienvenido a UVEPROTECH</h2><p>Explora nuestras gamas de celulares.</p>";
+    } else if(page==="economicos"){
+      html = renderOferta() + "<h2>Celulares Económicos</h2>" + renderProductos(productos.economicos);
+    } else if(page==="gama"){
+      html = renderOferta() + "<h2>Celulares Gama Media</h2>" + renderProductos(productos.gama);
+    } else if(page==="iphones"){
+      html = renderOferta() + "<h2>iPhones</h2>" + renderProductos(productos.iphones);
+    }
+    document.getElementById("content").innerHTML = html;
+  }
+
+  function addCart(nombre){
+    carrito.push(nombre);
+    document.getElementById("cartCount").innerText = carrito.length;
+    alert(nombre+" agregado al carrito");
+  }
+
+  // buscador
+  document.getElementById("buscar").addEventListener("input", function(){
+    const term = this.value.toLowerCase();
+    let res = [];
+    Object.values(productos).forEach(lista=>{
+      res = res.concat(lista.filter(p=>p.nombre.toLowerCase().includes(term)));
+    });
+    document.getElementById("content").innerHTML = renderOferta() + "<h2>Resultados de búsqueda</h2>" + renderProductos(res);
+  });
+
+  // cargar inicio al abrir
+  navigate('inicio');
+</script>
+</body>
+</html>
