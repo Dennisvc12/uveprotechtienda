@@ -5,102 +5,89 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UVEPROTECH - Gama Alta</title>
 <style>
-  body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f2f7fb; color:#333; }
-  header { background:#4a90e2; color:#fff; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;}
-  header h1 { margin:0; font-size:1.5em; cursor:pointer; }
-  nav a { color:#fff; margin-left:15px; text-decoration:none; font-weight:bold; }
-  nav a:hover { text-decoration:underline; }
-  .container { padding:20px; max-width:1200px; margin:auto; }
-  .products { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
-  .card { background:#fff; border-radius:8px; padding:15px; width:220px; box-shadow:0 2px 5px rgba(0,0,0,0.1); display:flex; flex-direction:column; justify-content:space-between; }
-  .card h2 { font-size:1em; margin:5px 0; }
-  .price { font-weight:bold; margin:5px 0; }
-  .old-price { text-decoration:line-through; color:#888; font-size:0.9em; margin-right:5px; }
-  .btn { background:#4a90e2; color:#fff; border:none; padding:8px; margin-top:5px; cursor:pointer; border-radius:4px; }
-  .btn:hover { background:#357ABD; }
-  .whatsapp { background:#25D366; margin-top:5px; }
-  .cart { position:fixed; top:15px; right:20px; background:red; color:#fff; padding:5px 10px; border-radius:50%; font-weight:bold; }
-  @media(max-width:600px){ header { flex-direction:column; align-items:flex-start;} nav { margin-top:10px; } .products { flex-direction:column; align-items:center;} }
+  body { font-family: Arial, sans-serif; margin:0; background:#cce0ff; }
+  header { background:#4a90e2; color:#fff; padding:10px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+  header .logo a { color:#fff; text-decoration:none; font-weight:bold; font-size:20px; }
+  nav a { margin:0 10px; color:#fff; text-decoration:none; font-weight:bold; }
+  nav .cart { cursor:pointer; }
+  .offer { background:yellow; color:black; padding:15px; text-align:center; font-weight:bold; margin:10px; border-radius:8px; }
+  .products { display:flex; flex-wrap:wrap; justify-content:center; padding:20px; }
+  .card { background:#fff; margin:10px; padding:15px; border-radius:8px; width:200px; box-shadow:0 2px 5px rgba(0,0,0,0.2); text-align:center; }
+  .card h2 { font-size:16px; margin-bottom:10px; }
+  .price { margin-bottom:10px; }
+  .old-price { text-decoration:line-through; color:#888; margin-right:5px; }
+  .btn { margin:5px 0; padding:5px 10px; border:none; border-radius:5px; cursor:pointer; background:#4a90e2; color:#fff; font-weight:bold; width:100%; }
+  .btn.whatsapp { background:#25d366; }
+  @media(max-width:600px){ .card{width:90%; margin:10px auto;} header {flex-direction:column; align-items:flex-start;} nav{margin-top:10px;} }
 </style>
 </head>
 <body>
 
 <header>
-  <h1 onclick="window.location.href='index.html'">UVEPROTECH</h1>
+  <div class="logo"><a href="index.html">UVEPROTECH</a></div>
   <nav>
-    <a href="index.html">Gama Baja</a>
+    <a href="gama-baja.html">Gama Baja</a>
     <a href="gama-media.html">Gama Media</a>
     <a href="gama-alta.html">Gama Alta</a>
+    <div class="cart">🛒 <span id="cart-count">0</span></div>
   </nav>
-  <div class="cart" id="cart-count">0</div>
 </header>
 
-<div class="container">
-  <div class="products" id="products-container">
-    <!-- Productos Gama Alta -->
-  </div>
-</div>
+<section class="offer">
+  <h2>OFERTA ESPECIAL</h2>
+  <p>XIAOMI 15 256GB por <strong>S/2869</strong></p>
+</section>
+
+<section class="products" id="products-container">
+</section>
 
 <script>
-const cartCountEl = document.getElementById('cart-count');
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-cartCountEl.innerText = cart.length;
+document.addEventListener('DOMContentLoaded', () => {
+  const products = [
+    // Xiaomi Gama Alta
+    {nombre:'XIAOMI 15 ULTRA 16GB 512GB', precio:4819, old:5200},
+    {nombre:'XIAOMI 15 512GB', precio:3269, old:3600},
+    {nombre:'XIAOMI 15 256GB', precio:2869, old:3200},
+    {nombre:'XIAOMI 14T Pro 512GB', precio:2469, old:2700},
+    {nombre:'XIAOMI 14T 512GB', precio:2020, old:2200},
+    // Samsung Gama Alta
+    {nombre:'Samsung Galaxy S25 256GB', precio:3020, old:3300},
+    {nombre:'Samsung Galaxy S25+ 256GB', precio:3520, old:3800},
+    {nombre:'Samsung Galaxy S25 Ultra 12/256', precio:3770, old:4000},
+    {nombre:'Samsung Galaxy S25 Ultra 12/512', precio:4000, old:4300},
+    {nombre:'Samsung Galaxy S25 Ultra 12/1TB', precio:5410, old:5800},
+    {nombre:'Galaxy Z Fold 7 256GB', precio:6610, old:7000},
+    {nombre:'Galaxy Z Fold 7 512GB', precio:7100, old:7500},
+    {nombre:'Galaxy Z Flip 7 256GB', precio:4110, old:4400},
+    {nombre:'Galaxy Z Flip 6 256GB', precio:3410, old:3700},
+    {nombre:'Galaxy Z Fold 5 256GB', precio:3710, old:4000},
+    // iPhone Gama Alta
+    {nombre:'iPhone 16 Pro Max 1TB (SIM)', precio:7110, old:7500},
+    {nombre:'iPhone 16 Pro Max 512GB (SIM)', precio:6010, old:6400},
+    {nombre:'iPhone 16 Pro Max 256GB (SIM)', precio:4890, old:5200},
+    {nombre:'iPhone 16 Pro 1TB (SIM)', precio:6110, old:6500},
+    {nombre:'iPhone 16 Pro 512GB (SIM)', precio:5210, old:5500},
+    {nombre:'iPhone 16 Pro 256GB (SIM)', precio:4549, old:4900},
+    {nombre:'iPhone 16 Pro 128GB (SIM)', precio:4310, old:4600},
+    {nombre:'iPhone 16 Plus 256GB (SIM)', precio:4910, old:5200},
+    {nombre:'iPhone 16 Plus 128GB (SIM)', precio:4510, old:4800},
+    {nombre:'iPhone 16 256GB (SIM)', precio:4109, old:4400},
+    {nombre:'iPhone 16 128GB (SIM)', precio:3199, old:3500},
+    {nombre:'iPhone 16E 128GB (SIM)', precio:2609, old:2800},
+    {nombre:'iPhone 16E 256GB (E-SIM)', precio:3210, old:3500},
+    {nombre:'iPhone 16E 512GB (E-SIM)', precio:3610, old:3900},
+    // Accesorios seleccionados
+    {nombre:'Cargador 45W', precio:259, old:380},
+    {nombre:'Airpods 4', precio:709, old:850},
+    {nombre:'Redmi Buds 5 Pro', precio:399, old:500},
+    {nombre:'Pulsera Mi Band 8', precio:209, old:300}
+  ];
 
-const gamaAlta = [
-  // Xiaomi gama alta
-  {nombre:'XIAOMI 15 ULTRA 16GB 512GB', precio:4819, old:4999},
-  {nombre:'XIAOMI 15 512GB', precio:3269, old:3459},
-  {nombre:'XIAOMI 15 256GB', precio:2869, old:3049},
-  {nombre:'XIAOMI 14T 512GB', precio:2019, old:2139},
-  {nombre:'XIAOMI 14T Pro 512GB', precio:2469, old:2599},
-  // Samsung gama alta
-  {nombre:'Galaxy Z Fold 7 256GB', precio:6610, old:6750},
-  {nombre:'Galaxy Z Fold 7 512GB', precio:7109, old:7250},
-  {nombre:'Galaxy Z Flip 7 256GB', precio:4110, old:4250},
-  {nombre:'Galaxy Z Fold 5 256GB', precio:3710, old:3850},
-  {nombre:'Samsung Galaxy S25 256GB', precio:3020, old:3200},
-  {nombre:'Samsung Galaxy S25+ 256GB', precio:3520, old:3700},
-  {nombre:'Samsung Galaxy S25 Ultra 12/256', precio:3770, old:3950},
-  {nombre:'Samsung Galaxy S25 Ultra 12/512', precio:4020, old:4200},
-  {nombre:'Samsung Galaxy S25 Ultra 12/1TB', precio:5410, old:5600},
-  {nombre:'GALAXY S24 FE 8GB 128GB', precio:2070, old:2190},
-  {nombre:'GALAXY S24 FE 8GB 256GB', precio:2270, old:2390},
-  {nombre:'GALAXY S24 FE 8GB 512GB', precio:2359, old:2499},
-  {nombre:'GALAXY S24 8GB 256GB', precio:2920, old:3050},
-  {nombre:'GALAXY S24 plus 12GB 256GB', precio:2920, old:3050},
-  {nombre:'GALAXY S24 plus 12GB 512GB', precio:3120, old:3250},
-  {nombre:'GALAXY S24 ULTRA 12GB 256GB', precio:3160, old:3300},
-  {nombre:'GALAXY S24 ULTRA 12GB 512GB', precio:3510, old:3650},
-  {nombre:'GALAXY S24 ULTRA 12GB 1TB', precio:4410, old:4600},
-  // iPhone gama alta
-  {nombre:'iPhone 16 Pro Max 1TB (Sim)', precio:7110, old:7300},
-  {nombre:'iPhone 16 Pro Max 512GB (Sim)', precio:6010, old:6200},
-  {nombre:'iPhone 16 Pro Max 256GB (Sim)', precio:4890, old:5100},
-  {nombre:'iPhone 16 Pro 1TB (Sim)', precio:6110, old:6300},
-  {nombre:'iPhone 16 Pro 512GB (Sim)', precio:5210, old:5400},
-  {nombre:'iPhone 16 Pro 256GB (Sim)', precio:4559, old:4700},
-  {nombre:'iPhone 16 Pro 128GB (Sim)', precio:4300, old:4500},
-  {nombre:'iPhone 16 Plus 128GB', precio:4510, old:4700},
-  {nombre:'iPhone 16 Plus 256GB', precio:4910, old:5100},
-  {nombre:'iPhone 16E 128GB', precio:2609, old:2800},
-  {nombre:'iPhone 16E 256GB', precio:3210, old:3400},
-  {nombre:'iPhone 16E 512GB', precio:3610, old:3800},
-  // Accesorios seleccionados
-  {nombre:'AirPods 4', precio:709, old:819},
-  {nombre:'AirPods Pro 2DA GEN', precio:1069, old:1179},
-  {nombre:'AirPods MAX', precio:2349, old:2459},
-  {nombre:'Adaptador Apple 20W', precio:219, old:329},
-  {nombre:'Cable C a C Apple', precio:209, old:319},
-  {nombre:'Xiaomi Watch S3', precio:609, old:719},
-];
-
-function renderProducts(){
   const container = document.getElementById('products-container');
-  container.innerHTML='';
-  gamaAlta.forEach(p=>{
+  products.forEach(p => {
     const card = document.createElement('div');
-    card.className='card';
-    card.innerHTML=`
+    card.className = 'card';
+    card.innerHTML = `
       <h2>${p.nombre}</h2>
       <div class="price"><span class="old-price">S/${p.old}</span> S/${p.precio}</div>
       <button class="btn" onclick="addToCart('${p.nombre}',${p.precio})">Agregar al carrito</button>
@@ -108,17 +95,18 @@ function renderProducts(){
     `;
     container.appendChild(card);
   });
-}
 
-function addToCart(name, price){
-  cart.push({name,price});
-  localStorage.setItem('cart',JSON.stringify(cart));
-  cartCountEl.innerText = cart.length;
-  alert(`${name} agregado al carrito`);
-}
+  const cartCountEl = document.getElementById('cart-count');
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  if(cartCountEl) cartCountEl.innerText = cart.length;
 
-renderProducts();
+  window.addToCart = (name, price) => {
+    cart.push({name,price});
+    localStorage.setItem('cart', JSON.stringify(cart));
+    if(cartCountEl) cartCountEl.innerText = cart.length;
+    alert(`${name} agregado al carrito`);
+  };
+});
 </script>
-
 </body>
 </html>
