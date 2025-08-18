@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>UVEPROTECH - Venta de Celulares</title>
+  <style>
+    body { margin:0; font-family:Arial, sans-serif; background:#f9f9f9; }
+    header { background:#005bbb; color:#fff; padding:15px; display:flex; justify-content:space-between; align-items:center; }
+    header h1 { margin:0; font-size:24px; }
+    nav a { color:#fff; margin:0 10px; text-decoration:none; font-weight:bold; cursor:pointer; }
+    .carrito { font-size:18px; margin-left:15px; }
+    .buscador { padding:5px; border-radius:5px; border:1px solid #ccc; }
+    .container { padding:20px; }
+    .oferta { background:yellow; padding:15px; margin-bottom:20px; border-radius:10px; font-weight:bold; }
+    .productos { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:15px; }
+    .card { background:#fff; padding:15px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1); text-align:center; }
+    .card img { width:120px; height:120px; object-fit:contain; margin-bottom:10px; }
+    .card button { margin:5px; padding:8px 10px; border:none; border-radius:5px; cursor:pointer; }
+    .btn-cart { background:#005bbb; color:#fff; }
+    .btn-wa { background:#25D366; color:#fff; }
+    footer { background:#005bbb; color:#fff; text-align:center; padding:10px; margin-top:20px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 onclick="navigate('inicio')">UVEPROTECH</h1>
+    <nav>
+      <a onclick="navigate('inicio')">Inicio</a>
+      <a onclick="navigate('economicos')">Económicos</a>
+      <a onclick="navigate('gama')">Gama Media</a>
+      <a onclick="navigate('iphones')">iPhones</a>
+      <input type="text" id="buscar" class="buscador" placeholder="Buscar producto">
+      <span class="carrito">🛒 <span id="cartCount">0</span></span>
+    </nav>
+  </header>
+
+  <div class="container" id="content"></div>
+
+  <footer>© 2025 UVEPROTECH - Venta de celulares</footer>
+
+<script>
+  const productos = {
+    economicos: [
+      {nombre:"Xiaomi Redmi A3x - 3GB/64GB", precio:389},
+      {nombre:"Samsung Galaxy A06 - 4GB/64GB", precio:439},
+      {nombre:"Honor X6B - 4GB/128GB", precio:580},
+      {nombre:"Motorola E14 - 2GB/64GB", precio:399},
+      {nombre:"ZTE A34 - 3GB/64GB", precio:380},
+      {nombre:"TECNO SPARK GO 2024 - 3GB/64GB", precio:430}
+    ],
+    gama: [
+      {nombre:"Samsung Galaxy A35 5G - 6GB/128GB", precio:1299},
+      {nombre:"Xiaomi Redmi Note 14 - 6GB/128GB", precio:849},
+      {nombre:"Xiaomi Poco F6 - 12GB/512GB", precio:1690},
+      {nombre:"Honor 200 Lite - 8GB/256GB", precio:1160},
+      {nombre:"Motorola G85 5G - 8GB/256GB", precio:1159},
+      {nombre:"ZTE Nubia Focus Pro 5G - 8GB/256GB", precio:1259}
+    ],
+    iphones: [
+      {nombre:"iPhone 13 - 4GB/128GB", precio:2349},
+      {nombre:"iPhone 14 - 6GB/128GB", precio:2799},
+      {nombre:"iPhone 15 - 6GB/128GB", precio:3099},
+      {nombre:"iPhone 16 - 8GB/128GB", precio:3460},
+      {nombre:"iPhone 16 Pro - 8GB/128GB", precio:4799},
+      {nombre:"iPhone 16 Pro Max - 8GB/256GB", precio:5699}
+    ]
+  };
+
+  let carrito = [];
+
+  function renderOferta() {
+    return `
+      <div class="oferta">
+        📢 Ofertas Especiales:<br>
+        - iPhone 14 - S/2,799<br>
+        - Samsung Galaxy A35 5G - S/1,299<br>
+        - Xiaomi Redmi A3x - S/389
+      </div>`;
+  }
+
+  function renderProductos(lista) {
+    return `<div class="productos">` + lista.map(p => `
+      <div class="card">
+        <img src="https://via.placeholder.com/120x120?text=${encodeURIComponent(p.nombre.split(" ")[0])}" alt="${p.nombre}">
+        <h3>${p.nombre}</h3>
+        <p><b>S/${p.precio}</b></p>
+        <button class="btn-cart" onclick="addCart('${p.nombre}')">Agregar al carrito</button>
+        <a href="https://wa.me/51949030039?text=Hola,%20me%20interesa%20${encodeURIComponent(p.nombre)}" target="_blank">
+          <button class="btn-wa">WhatsApp</button>
+        </a>
+      </div>`).join('') + `</div>`;
+  }
+
+  function navigate(page) {
+    let html = "";
+    if(page==="inicio"){
+      html = renderOferta() + "<h2>Bienvenido a UVEPROTECH</h2><p>Explora nuestras gamas de celulares.</p>";
+    } else if(page==="economicos"){
+      html = renderOferta() + "<h2>Celulares Económicos</h2>" + renderProductos(productos.economicos);
+    } else if(page==="gama"){
+      html = renderOferta() + "<h2>Celulares Gama Media</h2>" + renderProductos(productos.gama);
+    } else if(page==="iphones"){
+      html = renderOferta() + "<h2>iPhones</h2>" + renderProductos(productos.iphones);
+    }
+    document.getElementById("content").innerHTML = html;
+  }
+
+  function addCart(nombre){
+    carrito.push(nombre);
+    document.getElementById("cartCount").innerText = carrito.length;
+    alert(nombre+" agregado al carrito");
+  }
+
+  // buscador
+  document.getElementById("buscar").addEventListener("input", function(){
+    const term = this.value.toLowerCase();
+    let res = [];
+    Object.values(productos).forEach(lista=>{
+      res = res.concat(lista.filter(p=>p.nombre.toLowerCase().includes(term)));
+    });
+    document.getElementById("content").innerHTML = renderOferta() + "<h2>Resultados de búsqueda</h2>" + renderProductos(res);
+  });
+
+  // cargar inicio al abrir
+  navigate('inicio');
+</script>
+</body>
+</html>
