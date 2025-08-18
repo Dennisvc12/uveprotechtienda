@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UVEPROTECH - Gamas Bajas</title>
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif; }
+    body { background-color: #f5f5f5; }
+
+    header {
+        background-color: #0d47a1;
+        color: white;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    header h1 { font-size: 1.8rem; }
+    .cart { position: relative; cursor: pointer; }
+    .cart-count {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background:red;
+        color:white;
+        width:20px;
+        height:20px;
+        border-radius:50%;
+        text-align:center;
+        font-size:12px;
+        line-height:20px;
+    }
+
+    .section-title {
+        font-size:1.5rem;
+        margin:20px;
+        color:#0d47a1;
+    }
+
+    .container { padding:20px; display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:20px; }
+
+    .card {
+        background-color:white;
+        padding:15px;
+        border-radius:10px;
+        box-shadow:0 4px 8px rgba(0,0,0,0.1);
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+        transition: transform 0.2s;
+    }
+    .card:hover { transform:translateY(-5px); }
+
+    .card h2 { font-size:1.1rem; color:#333; margin-bottom:5px; }
+    .card p { font-size:0.9rem; margin-bottom:5px; color:#555; }
+    .price { font-weight:bold; color:#0d47a1; }
+    .old-price { text-decoration: line-through; color:#999; font-size:0.8rem; }
+
+    .buttons { display:flex; justify-content:space-between; margin-top:10px; }
+    .buy-btn, .whatsapp-btn {
+        padding:8px 10px;
+        border:none;
+        border-radius:5px;
+        cursor:pointer;
+        font-size:0.9rem;
+        text-decoration:none;
+        text-align:center;
+        flex:1;
+    }
+    .buy-btn { background-color:#0d47a1; color:white; margin-right:5px; }
+    .buy-btn:hover { background-color:#1565c0; }
+    .whatsapp-btn { background-color:#25D366; color:white; margin-left:5px; }
+    .whatsapp-btn:hover { background-color:#1ebe57; }
+
+    footer {
+        text-align:center;
+        padding:20px;
+        margin-top:20px;
+        background-color:#0d47a1;
+        color:white;
+    }
+
+    @media(max-width:600px){
+        .buttons{flex-direction:column;}
+        .buy-btn, .whatsapp-btn{margin:5px 0;}
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>UVEPROTECH</h1>
+    <div class="cart">
+        🛒 Carrito <span id="cart-count" class="cart-count">0</span>
+    </div>
+</header>
+
+<main>
+
+<!-- POCO GAMA BAJA -->
+<h2 class="section-title">Poco Gama Baja</h2>
+<div class="container">
+    <div class="card">
+        <h2>Poco C71 4GB 128GB</h2>
+        <p>RAM: 4GB | Almacenamiento: 128GB</p>
+        <p class="old-price">S/330</p>
+        <p class="price">S/450</p>
+        <div class="buttons">
+            <button class="buy-btn">Agregar al carrito</button>
+            <a class="whatsapp-btn" href="https://wa.me/511949030039?text=Hola,%20quiero%20comprar%20Poco%20C71%204GB%20128GB" target="_blank">WhatsApp</a>
+        </div>
+    </div>
+</div>
+
+<!-- REDMI GAMA BAJA -->
+<h2 class="section-title">Redmi Gama Baja</h2>
+<div class="container">
+    <div class="card">
+        <h2>Redmi A5 4GB 64GB</h2>
+        <p>RAM: 4GB | Almacenamiento: 64GB</p>
+        <p class="old-price">S/340</p>
+        <p class="price">S/460</p>
+        <div class="buttons">
+            <button class="buy-btn">Agregar al carrito</button>
+            <a class="whatsapp-btn" href="https://wa.me/511949030039?text=Hola,%20quiero%20comprar%20Redmi%20A5%204GB%2064GB" target="_blank">WhatsApp</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Redmi A5 4GB 128GB</h2>
+        <p>RAM: 4GB | Almacenamiento: 128GB</p>
+        <p class="old-price">S/390</p>
+        <p class="price">S/510</p>
+        <div class="buttons">
+            <button class="buy-btn">Agregar al carrito</button>
+            <a class="whatsapp-btn" href="https://wa.me/511949030039?text=Hola,%20quiero%20comprar%20Redmi%20A5%204GB%20128GB" target="_blank">WhatsApp</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Redmi A3X 3GB 64GB</h2>
+        <p>RAM: 3GB | Almacenamiento: 64GB</p>
+        <p class="old-price">S/330</p>
+        <p class="price">S/450</p>
+        <div class="buttons">
+            <button class="buy-btn">Agregar al carrito</button>
+            <a class="whatsapp-btn" href="https://wa.me/511949030039?text=Hola,%20quiero%20comprar%20Redmi%20A3X%203GB%2064GB" target="_blank">WhatsApp</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Redmi A3X 4GB 128GB</h2>
+        <p>RAM: 4GB | Almacenamiento: 128GB</p>
+        <p class="old-price">S/390</p>
+        <p class="price">S/510</p>
+        <div class="buttons">
+            <button class="buy-btn">Agregar al carrito</button>
+            <a class="whatsapp-btn" href="https://wa.me/511949030039?text=Hola,%20quiero%20comprar%20Redmi%20A3X%204GB%20128GB" target="_blank">WhatsApp</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Redmi 14C 4GB 128GB</h2>
+        <p>RAM: 4GB | Almacenamiento: 128GB</p>
+        <p class="old-price">S/390</p>
+        <p class="price">S/510</p>
+        <div class="buttons">
+            <button class="buy-btn">Agregar al carrito</button>
+            <a class="whatsapp-btn" href="https://wa.me/511949030039?text=Hola,%20quiero%20comprar%20Redmi%2014C%204GB%20128GB" target="_blank">WhatsApp</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Redmi 14C 4GB 256GB</h2>
+        <p>RAM: 4GB | Almacenamiento: 256GB</p>
+        <p class="old-price">S/460</p>
+        <p class="price">S/580</p>
+        <div class="buttons">
+            <button class="buy-btn">Agregar al carrito</button>
+            <a class="whatsapp-btn" href="https://wa.me/511949030039?text=Hola,%20quiero%20comprar%20Redmi%2014C%204GB%20256GB" target="_blank">WhatsApp</a>
+        </div>
+    </div>
+</div>
+
+<!-- HONOR GAMA BAJA -->
+<h2 class="section-title">Honor Gama Baja</h2>
+<div class="container">
+    <div class="card">
+        <h2>Honor X6B 4+128GB</h2>
+        <p>RAM: 4GB | Almacenamiento: 128GB</p>
+        <p class="old-price">S/500</p>
+        <p class="price">S/620</p>
+        <div class="buttons">
+            <button class="buy-btn">Agregar al carrito</button>
+            <a class="whatsapp-btn" href="https://wa.me/511949030039?text=Hola,%20quiero%20comprar%20Honor%20X6B%204+128GB" target="_blank">WhatsApp</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Honor X6B 5+256GB</h2>
+        <p>RAM: 5GB | Almacenamiento: 256GB</p>
+        <p class="old-price">S/550</p>
+        <p class="price">S/670</p>
+        <div class="buttons">
+            <button class="buy-btn">Agregar al carrito</button>
+            <a class="whatsapp-btn" href="https://wa.me/511949030039?text=Hola,%20quiero%20comprar%20Honor%20X6B%205+256GB" target="_blank">WhatsApp</a>
+        </div>
+    </div>
+
+</div>
+
+<!-- Agrega más marcas de gama baja aquí siguiendo la misma estructura -->
+
+</main>
+
+<footer>
+    &copy; 2025 UVEPROTECH - Todos los derechos reservados
+</footer>
+
+<script>
+let cartCount = 0;
+const buttons = document.querySelectorAll(".buy-btn");
+buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        cartCount++;
+        document.getElementById("cart-count").textContent = cartCount;
+        alert("Producto agregado al carrito!");
+    });
+});
+</script>
+
+</body>
+</html>
