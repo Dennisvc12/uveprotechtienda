@@ -5,85 +5,90 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UVEPROTECH - Gama Baja</title>
 <style>
-  body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f2f7fb; color:#333; }
-  header { background:#4a90e2; color:#fff; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;}
-  header h1 { margin:0; font-size:1.5em; cursor:pointer; }
-  nav a { color:#fff; margin-left:15px; text-decoration:none; font-weight:bold; }
-  nav a:hover { text-decoration:underline; }
-  .container { padding:20px; max-width:1200px; margin:auto; }
-  .offer { background:yellow; padding:15px; text-align:center; margin-bottom:20px; font-weight:bold; border-radius:5px; }
-  .products { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
-  .card { background:#fff; border-radius:8px; padding:15px; width:220px; box-shadow:0 2px 5px rgba(0,0,0,0.1); display:flex; flex-direction:column; justify-content:space-between; }
-  .card h2 { font-size:1em; margin:5px 0; }
-  .price { font-weight:bold; margin:5px 0; }
-  .old-price { text-decoration:line-through; color:#888; font-size:0.9em; margin-right:5px; }
-  .btn { background:#4a90e2; color:#fff; border:none; padding:8px; margin-top:5px; cursor:pointer; border-radius:4px; }
-  .btn:hover { background:#357ABD; }
-  .whatsapp { background:#25D366; margin-top:5px; }
-  .cart { position:fixed; top:15px; right:20px; background:red; color:#fff; padding:5px 10px; border-radius:50%; font-weight:bold; }
-  @media(max-width:600px){ header { flex-direction:column; align-items:flex-start;} nav { margin-top:10px; } .products { flex-direction:column; align-items:center;} }
+  body { font-family: Arial, sans-serif; margin:0; background:#cce0ff; }
+  header { background:#4a90e2; color:#fff; padding:10px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+  header .logo a { color:#fff; text-decoration:none; font-weight:bold; font-size:20px; }
+  nav a { margin:0 10px; color:#fff; text-decoration:none; font-weight:bold; }
+  nav .cart { cursor:pointer; }
+  .offer { background:yellow; color:black; padding:15px; text-align:center; font-weight:bold; margin:10px; border-radius:8px; }
+  .products { display:flex; flex-wrap:wrap; justify-content:center; padding:20px; }
+  .card { background:#fff; margin:10px; padding:15px; border-radius:8px; width:200px; box-shadow:0 2px 5px rgba(0,0,0,0.2); text-align:center; }
+  .card h2 { font-size:16px; margin-bottom:10px; }
+  .price { margin-bottom:10px; }
+  .old-price { text-decoration:line-through; color:#888; margin-right:5px; }
+  .btn { margin:5px 0; padding:5px 10px; border:none; border-radius:5px; cursor:pointer; background:#4a90e2; color:#fff; font-weight:bold; width:100%; }
+  .btn.whatsapp { background:#25d366; }
+  @media(max-width:600px){ .card{width:90%; margin:10px auto;} header {flex-direction:column; align-items:flex-start;} nav{margin-top:10px;} }
 </style>
 </head>
 <body>
 
 <header>
-  <h1 onclick="window.location.href='index.html'">UVEPROTECH</h1>
+  <div class="logo"><a href="gama-baja.html">UVEPROTECH</a></div>
   <nav>
-    <a href="index.html">Gama Baja</a>
+    <a href="gama-baja.html">Gama Baja</a>
     <a href="gama-media.html">Gama Media</a>
     <a href="gama-alta.html">Gama Alta</a>
+    <div class="cart">🛒 <span id="cart-count">0</span></div>
   </nav>
-  <div class="cart" id="cart-count">0</div>
 </header>
 
-<div class="container">
-  <div class="offer">¡Oferta Especial! Xiaomi Redmi A5 4GB 64GB ahora solo S/450</div>
-  
-  <div class="products" id="products-container">
-    <!-- Productos Gama Baja -->
-  </div>
-</div>
+<section class="offer">
+  <h2>OFERTA ESPECIAL</h2>
+  <p>Redmi A5 4GB 64GB por <strong>S/450</strong></p>
+</section>
+
+<section class="products" id="products-container">
+</section>
 
 <script>
-const cartCountEl = document.getElementById('cart-count');
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-cartCountEl.innerText = cart.length;
+document.addEventListener('DOMContentLoaded', () => {
+  const products = [
+    // Redmi & Poco
+    {nombre:'Poco C71 4GB 128GB', precio:450, old:580},
+    {nombre:'Redmi A5 4GB 64GB', precio:450, old:580},
+    {nombre:'Redmi A5 4GB 128GB', precio:500, old:620},
+    {nombre:'Redmi A3X 3GB 64GB', precio:450, old:530},
+    {nombre:'Redmi A3X 4GB 128GB', precio:500, old:620},
+    {nombre:'Redmi 14C 4GB 128GB', precio:500, old:620},
+    {nombre:'Redmi 14C 4GB 256GB', precio:570, old:680},
+    {nombre:'Redmi 14C 8GB 256GB', precio:660, old:780},
+    {nombre:'Redmi 13X 8GB 256GB', precio:709, old:830},
+    // Samsung A series
+    {nombre:'Galaxy A06 4GB 64GB', precio:499, old:620},
+    {nombre:'Galaxy A06 4GB 128GB', precio:609, old:720},
+    {nombre:'Galaxy A16 4GB 128GB', precio:709, old:820},
+    {nombre:'Galaxy A16 8GB 256GB', precio:859, old:980},
+    // Honor
+    {nombre:'Honor X6B 4+128GB', precio:620, old:740},
+    {nombre:'Honor X6B 5+256GB', precio:670, old:790},
+    // Tecno
+    {nombre:'Tecno Spark Go 2024 4GB 128GB', precio:540, old:650},
+    {nombre:'Tecno Spark Go 2024 3GB 64GB', precio:480, old:590},
+    // Motorola
+    {nombre:'Motorola G04s 4GB 128GB', precio:550, old:670},
+    {nombre:'Motorola E14 2GB 64GB', precio:460, old:580},
+    {nombre:'Motorola G24 4GB 256GB', precio:610, old:730},
+    // ZTE
+    {nombre:'ZTE A34 2GB 64GB', precio:409, old:520},
+    {nombre:'ZTE A54 4GB 128GB', precio:459, old:570},
+    {nombre:'ZTE A73 4GB 256GB', precio:559, old:670},
+    {nombre:'ZTE V40 Vita 4GB 128GB', precio:559, old:670},
+    {nombre:'ZTE V40 Desing 6GB 128GB', precio:559, old:670},
+    {nombre:'ZTE V50 Vita 6GB 256GB', precio:640, old:750},
+    // Infinix
+    {nombre:'Infinix Note 50 Pro 8GB 256GB', precio:1019, old:1139},
+    // Accesorios seleccionados
+    {nombre:'Cargador 15W', precio:149, old:259},
+    {nombre:'Pulsera Mi Band 8', precio:209, old:319},
+    {nombre:'Redmi Buds 5 Pro', precio:399, old:509}
+  ];
 
-const gamaBaja = [
-  {nombre:'Poco C71 4GB 128GB', precio:440, old:550},
-  {nombre:'Redmi A5 4GB 64GB', precio:450, old:560},
-  {nombre:'Redmi A5 4GB 128GB', precio:500, old:620},
-  {nombre:'Redmi A3X 3GB 64GB', precio:440, old:550},
-  {nombre:'Redmi A3X 4GB 128GB', precio:500, old:620},
-  {nombre:'Redmi 14C 4GB 128GB', precio:500, old:620},
-  {nombre:'Redmi 14C 4GB 256GB', precio:570, old:690},
-  {nombre:'Redmi 14C 8GB 256GB', precio:660, old:780},
-  {nombre:'Redmi 13X 8GB 256GB', precio:709, old:820},
-  {nombre:'Honor X6B 4+128GB', precio:610, old:720},
-  {nombre:'Honor X6B 5+256GB', precio:660, old:770},
-  {nombre:'Honor X7C 8+256GB', precio:860, old:970},
-  {nombre:'Honor X8C 8+256GB', precio:960, old:1070},
-  {nombre:'TECNO SPARK GO 2024 4GB 128GB', precio:540, old:650},
-  {nombre:'TECNO SPARK GO 2024 3GB 64GB', precio:480, old:590},
-  {nombre:'ZTE A34 2GB 64GB', precio:409, old:519},
-  {nombre:'ZTE A54 4GB 128GB', precio:459, old:569},
-  {nombre:'ZTE A73 4GB 256GB', precio:559, old:669},
-  {nombre:'ZTE V40 VITA 4GB 128GB', precio:559, old:669},
-  {nombre:'ZTE V40 DESING 6GB 128GB', precio:559, old:669},
-  {nombre:'ZTE V50 VITA 6GB 256GB', precio:640, old:750},
-  {nombre:'ZTE AXON 50 5G 6GB 256GB', precio:960, old:1070},
-  {nombre:'ZTE NUBIA FOCUS PRO 5G 8GB 256GB', precio:1159, old:1270},
-  {nombre:'INFINIX NOTE 50 PRO 8RAM/256GB', precio:1009, old:1119},
-  {nombre:'INFINIX GT 30 PRO 12GB 256GB', precio:1359, old:1469},
-];
-
-function renderProducts(){
   const container = document.getElementById('products-container');
-  container.innerHTML='';
-  gamaBaja.forEach(p=>{
+  products.forEach(p => {
     const card = document.createElement('div');
-    card.className='card';
-    card.innerHTML=`
+    card.className = 'card';
+    card.innerHTML = `
       <h2>${p.nombre}</h2>
       <div class="price"><span class="old-price">S/${p.old}</span> S/${p.precio}</div>
       <button class="btn" onclick="addToCart('${p.nombre}',${p.precio})">Agregar al carrito</button>
@@ -91,17 +96,18 @@ function renderProducts(){
     `;
     container.appendChild(card);
   });
-}
 
-function addToCart(name, price){
-  cart.push({name,price});
-  localStorage.setItem('cart',JSON.stringify(cart));
-  cartCountEl.innerText = cart.length;
-  alert('Producto agregado al carrito');
-}
+  const cartCountEl = document.getElementById('cart-count');
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  if(cartCountEl) cartCountEl.innerText = cart.length;
 
-renderProducts();
+  window.addToCart = (name, price) => {
+    cart.push({name,price});
+    localStorage.setItem('cart', JSON.stringify(cart));
+    if(cartCountEl) cartCountEl.innerText = cart.length;
+    alert(`${name} agregado al carrito`);
+  };
+});
 </script>
-
 </body>
 </html>
