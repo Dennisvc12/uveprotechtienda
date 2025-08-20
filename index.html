@@ -67,6 +67,8 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
 
 /* layout en 2 columnas para compra inteligente + oferta, y para iphone + producto */
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch;margin-bottom:16px}
+/* cuando estamos navegando por gamas, solo productos (1 columna) */
+#fila-2.solo-productos{grid-template-columns:1fr}
 
 /* barra de navegación de gamas que aparece solo al entrar a una gama */
 #gama-navegacion{
@@ -192,8 +194,8 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
 
   const lista = document.getElementById('lista-productos');
   const nav = document.getElementById('gama-navegacion');
-  const inicioCuadro = document.getElementById('inicio-cuadro');
-  const oferta = document.getElementById('oferta-del-dia');
+  const fila1 = document.getElementById('fila-1');
+  const fila2 = document.getElementById('fila-2');
   const imgIphone = document.getElementById('img-iphone');
 
   // Renderizador de productos (sin imágenes; se usa un emoji como ícono)
@@ -222,10 +224,10 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
   // Estado: ir al inicio (muestra secciones y oculta barra)
   function irAlInicio(){
     // mostrar secciones de inicio
-    document.getElementById('fila-1').style.display = '';
-    document.getElementById('fila-2').style.display = '';
-    inicioCuadro.style.display = '';
-    oferta.style.display = '';
+    fila1.style.display = '';
+    fila2.style.display = '';
+    // restaurar layout y mostrar iPhone
+    fila2.classList.remove('solo-productos');
     imgIphone.style.display = '';
     // ocultar barra de navegación
     nav.style.display = 'none';
@@ -245,9 +247,13 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
   document.querySelectorAll('#inicio-cuadro .btn-primary').forEach(btn=>{
     btn.addEventListener('click',()=>{
       const gama = btn.getAttribute('data-gama');
-      // ocultar secciones de inicio y mostrar barra de navegación
-      document.getElementById('fila-1').style.display = 'none';
-      document.getElementById('fila-2').style.display = '';
+      // Ocultar fila 1 (compra inteligente + oferta), mostrar fila 2
+      fila1.style.display = 'none';
+      fila2.style.display = '';
+      // Ocultar iPhone y expandir productos a ancho completo
+      imgIphone.style.display = 'none';
+      fila2.classList.add('solo-productos');
+      // mostrar barra de navegación
       nav.style.display = 'block';
       // render de gama
       mostrarProductos(productosPorGama[gama]);
@@ -261,9 +267,11 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
   document.querySelectorAll('#gama-navegacion .btn-primary[data-gama]').forEach(btn=>{
     btn.addEventListener('click',()=>{
       const gama = btn.getAttribute('data-gama');
-      // aseguramos que las filas visibles sean las de lista de productos
-      document.getElementById('fila-1').style.display = 'none';
-      document.getElementById('fila-2').style.display = '';
+      // Asegurar vista de gamas: ocultar iPhone y expandir productos
+      fila1.style.display = 'none';
+      fila2.style.display = '';
+      imgIphone.style.display = 'none';
+      fila2.classList.add('solo-productos');
       nav.style.display = 'block';
       mostrarProductos(productosPorGama[gama]);
       window.scrollTo({top:0,behavior:'smooth'});
@@ -278,9 +286,7 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
     Object.values(productosPorGama).flat().forEach(p=>{
       if(p.nombre.toLowerCase().includes(termino)) filtrados.push(p);
     });
-    if(termino==='')
-      return; // si se borra el texto, no tocamos la vista actual
-    // si el user está buscando, mostramos resultados (y mantenemos la barra tal cual esté)
+    if(termino==='') return; // si se borra el texto, no tocamos la vista actual
     mostrarProductos(filtrados.length ? filtrados : [{nombre:"No se encontró producto", precio:"", img:"", specs:""}]);
   });
 
