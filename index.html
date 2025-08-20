@@ -92,12 +92,18 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
     </a>
   </header>
 
-  <!-- Compra inteligente -->
-  <section class="hero hero-card">
+  <!-- Compra inteligente + botones gamas en la página principal -->
+  <section class="hero hero-card" id="inicio-cuadro">
     <h1>Compra inteligente, entrega rápida en Pisco</h1>
+    <div class="gama-group">
+      <button class="btn btn-primary" data-gama="baja">Gama baja</button>
+      <button class="btn btn-primary" data-gama="media">Gama media</button>
+      <button class="btn btn-primary" data-gama="alta">Gama alta</button>
+      <button class="btn btn-primary" data-gama="iphone">iPhones</button>
+    </div>
   </section>
 
-  <!-- Oferta del día (solo visible en página principal) -->
+  <!-- Oferta del día -->
   <section class="offer" id="oferta-del-dia">
     <img src="https://images.unsplash.com/photo-1610945264541-a44bd3b6e60e?q=80&w=400" alt="Oferta del día">
     <div>
@@ -107,14 +113,14 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
   </section>
 
   <!-- Imagen de iPhone -->
-  <section class="hero hero-card">
+  <section class="hero hero-card" id="img-iphone">
     <div class="img-wrap" style="height:260px">
       <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1000&auto=format&fit=crop" alt="Celular moderno"/>
     </div>
   </section>
 
-  <!-- Cuadro de gamas siempre visible -->
-  <section class="hero-card">
+  <!-- Nuevo cuadro de navegación de gamas al filtrar -->
+  <section class="hero-card" id="gama-navegacion" style="display:none;">
     <div class="gama-group">
       <button class="btn btn-primary" data-gama="baja">Gama baja</button>
       <button class="btn btn-primary" data-gama="media">Gama media</button>
@@ -197,12 +203,22 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
   // Mostrar producto de oferta al inicio
   mostrarProductos([productosPorGama.alta[0]]);
 
-  // Botones de gama
-  document.querySelectorAll('.gama-group .btn-primary').forEach(btn=>{
+  // Botones de gama del cuadro principal
+  document.querySelectorAll('#inicio-cuadro .btn-primary').forEach(btn=>{
     btn.addEventListener('click',()=>{
       const gama = btn.getAttribute('data-gama');
-      // Ocultar solo oferta del día al filtrar gama
-      document.getElementById('oferta-del-dia').style.display = 'none';
+      document.getElementById('inicio-cuadro').style.display='none';
+      document.getElementById('oferta-del-dia').style.display='none';
+      document.getElementById('img-iphone').style.display='none';
+      document.getElementById('gama-navegacion').style.display='block';
+      mostrarProductos(productosPorGama[gama]);
+    });
+  });
+
+  // Botones de gama del cuadro de navegación
+  document.querySelectorAll('#gama-navegacion .btn-primary').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const gama = btn.getAttribute('data-gama');
       mostrarProductos(productosPorGama[gama]);
     });
   });
@@ -214,7 +230,7 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
     let todos = [];
     Object.values(productosPorGama).forEach(arr=> todos = todos.concat(arr));
     const filtrados = todos.filter(p => p.nombre.toLowerCase().includes(term));
-    mostrarProductos(filtrados.length ? filtrados : []);
+    mostrarProductos(filtrados.length? filtrados : [{nombre:"No se encontró producto", precio:"", img:"", specs:""}]);
   });
 })();
 </script>
