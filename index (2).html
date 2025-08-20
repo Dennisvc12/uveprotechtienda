@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UVEPROTECH — Venta de Celulares</title>
+  <!-- Favicon integrado UVEPROTECH azul -->
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABnElEQVR4nO2WsUoDQRCG33sIuRQLi8SGBxBY+QCYL7IAAm5ABcAuJAbEFiySAmwPQZ9yzcDTbi9ap/Oq93n97rW7be62reVfUjAlrxp5m1oDErAK3AM4gGbwAqVFlYAOcC3tgiUIVKEC7szBiKOIuUE3YqAi4ChUVgMWQ6wGC9dxQmEJkKuAKb8Q7cK+qMHMLTCk+uIoaT0RBjcJkFrjbzqChQZmDYcODFgwEbwXc0Q3yoD0mDQhfGu8lfAE0odJ7V5yM28fY8AKOxPzL5vUEM8y7r7NmncsTnIviFgGehOBzy7mMC4Csdo25Ge82AyPvgqfXJEBDF4EMWvwF5S4bnzM73AKrZxz+ROgDy3ak6B9oJe7XVDOfTe2oGTbsoxE1oCs1CdmphdcsyBMwCW2RGnLbw5+gYogwIf79UzMUN5mKwXqHDwvtxLtsEqw8ibEFv4BEJgFuWUpQBAAAAABJRU5ErkJggg==" />
+  <style>
+    /* ====================== CSS INTEGRADO ====================== */
+    :root{
+      --azul-1:#0a2540;
+      --azul-2:#1b4d84;
+      --azul-3:#60a5fa;
+      --blanco:#ffffff;
+      --gris:#e5e7eb;
+      --texto:#0f172a;
+      --shadow:0 10px 25px rgba(2,12,27,.25);
+      --radius:18px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
+      color:var(--texto);
+      background:radial-gradient(1200px 800px at 10% -10%, rgba(96,165,250,.25), transparent 60%), linear-gradient(180deg, #0b1724 0%, #0e2036 40%, #0a1320 100%);
+    }
+    body::before{
+      content:"";
+      position:fixed;inset:-10%;pointer-events:none;z-index:-1;
+      background: radial-gradient(600px 400px at 80% 10%, rgba(96,165,250,.18), transparent 60%), radial-gradient(800px 500px at 20% 90%, rgba(59,130,246,.12), transparent 65%);
+      filter: saturate(110%) blur(0.2px);
+    }
+    .wrap{max-width:1100px;margin:0 auto;padding:24px}
+    header{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      padding:14px 18px;margin:12px 0 22px 0;background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));
+      border:1px solid rgba(255,255,255,.18);backdrop-filter: blur(8px);
+      border-radius: var(--radius);box-shadow: var(--shadow);color:#e6f0ff;
+    }
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#e8f2ff}
+    .logo{
+      width:44px;height:44px;border-radius:12px;
+      background: conic-gradient(from 200deg at 50% 50%, var(--azul-3), var(--azul-2), var(--azul-1));
+      box-shadow: 0 6px 20px rgba(37,99,235,.35), inset 0 0 24px rgba(255,255,255,.2);
+    }
+    .title{font-weight:800;letter-spacing:.2px;font-size: clamp(18px, 2.4vw, 22px)}
+    .title small{display:block;font-weight:500;opacity:.8;font-size:12px;margin-top:2px}
+    .cta-group{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{appearance:none;border:none;cursor:pointer;padding:10px 14px;border-radius:12px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:var(--shadow)}
+    .btn-primary{background: linear-gradient(180deg, #60a5fa, #2563eb); color: white}
+    .btn-ghost{background: rgba(255,255,255,.08); color:#e6f0ff; border:1px solid rgba(255,255,255,.2)}
+    .btn:hover{transform: translateY(-1px)}
+    .hero{color:#eaf2ff; display:grid; grid-template-columns: 1.2fr .8fr; gap:24px; align-items:center; margin: 6px 0 16px}
+    .hero-card{padding:22px;background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.18);backdrop-filter: blur(8px);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .hero h1{margin:0 0 8px;font-size: clamp(22px, 3.4vw, 34px)}
+    .hero p{margin:0 0 14px;opacity:.92}
+    .grid{display:grid;grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));gap:16px;margin-top:12px}
+    .card{display:flex;flex-direction:column;gap:10px;background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.88));border:1px solid rgba(15,23,42,.06);border-radius:16px;box-shadow: var(--shadow);padding:14px}
+    .img-wrap{display:flex;align-items:center;justify-content:center;height:210px;border-radius:12px;background: radial-gradient(220px 160px at 50% 40%, #dbeafe, #eff6ff);overflow:hidden}
+    .img-wrap img{max-width:92%;max-height:92%;object-fit:contain;filter: drop-shadow(0 10px 16px rgba(0,0,0,.15))}
+    .name{font-weight:800;font-size:16px}
+    .price{font-weight:800;color:#0b5ed7}
+    .specs{font-size:13px;color:#334155;opacity:.9}
+    .actions{margin-top:auto;display:flex;gap:8px}
+    .actions .btn{flex:1;justify-content:center}
+    footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
+    .wa-float{position:fixed;right:18px;bottom:18px;background:#25D366;color:white;border-radius:999px;width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-weight:900;text-decoration:none;box-shadow:0 12px 26px rgba(0,0,0,.35)}
+    .wa-float:active{transform: translateY(1px)}
+    @media (max-width: 860px){.hero{grid-template-columns: 1fr}}
+  </style>
+</head>
+<body>
+<script>
+  // TU NÚMERO DE WHATSAPP
+  const MI_WHATSAPP = "51949030039";
+</script>
+
+<div class="wrap">
+  <header>
+    <a class="brand" href="#">
+      <div class="logo"></div>
+      <div class="title">UVEPROTECH <small>Celulares con garantía</small></div>
+    </a>
+    <div class="cta-group">
+      <a id="btn-whatsapp-top" class="btn btn-ghost" href="#" target="_blank" rel="noopener">💬 WhatsApp</a>
+      <a class="btn btn-primary" href="#productos">Ver ofertas</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-card">
+      <h1>Compra inteligente, entrega rápida en Pisco</h1>
+      <p>Modelos nuevos, garantía y soporte. Te asesoramos por WhatsApp y puedes pagar contraentrega* en zonas disponibles.</p>
+      <div class="cta-group">
+        <a class="btn btn-primary" href="#productos">Explorar productos</a>
+        <a id="btn-whatsapp-hero" class="btn btn-ghost" href="#" target="_blank" rel="noopener">Escríbenos</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="img-wrap" style="height:260px">
+        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1000&auto=format&fit=crop" alt="Celular moderno con fondo azul"/>
+      </div>
+    </div>
+  </section>
+
+  <section id="productos" class="hero-card" style="margin-top:8px">
+    <h2 style="margin:0 0 8px;color:#eaf2ff">Productos</h2>
+    <p style="margin:0 0 12px;color:#cfe3ff">Sigue la plantilla para agregar o quitar equipos sin que se rompa el diseño.</p>
+
+    <div class="grid" id="lista-productos">
+
+      <!-- ==================== PRODUCTO 1 ==================== -->
+      <article class="card" data-nombre="Samsung Galaxy S24 Ultra" data-precio="S/ 4,899">
+        <!-- 🔹 CAMBIA ESTA IMAGEN -->
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1610945264541-a44bd3b6e60e?q=80&w=1000&auto=format&fit=crop" alt="Samsung Galaxy S24 Ultra"/></div>
+        <!-- 🔹 CAMBIA EL NOMBRE DEL PRODUCTO -->
+        <div class="name">Samsung Galaxy S24 Ultra</div>
+        <!-- 🔹 CAMBIA EL PRECIO -->
+        <div class="price">S/ 4,899</div>
+        <!-- 🔹 CAMBIA LAS ESPECIFICACIONES -->
+        <div class="specs">12GB RAM · 256GB · Cámara 200MP · Snapdragon · Garantía</div>
+        <div class="actions">
+          <!-- Botón Comprar envía a WhatsApp -->
+          <button class="btn btn-primary comprar">Comprar</button>
+          <a class="btn btn-ghost ws-link" href="#" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- 🔹 PARA AGREGAR MÁS PRODUCTOS:
+           Copia todo el <article class="card">…</article> y pega debajo.
+           Cambia imagen, nombre, precio y specs. -->
+
+    </div>
+
+    <p style="font-size:12px;color:#c7dbff;margin-top:12px">*Consulta cobertura y condiciones. Imágenes referenciales.</p>
+  </section>
+
+  <footer>
+    © <span id="year"></span> UVEPROTECH — Atención por WhatsApp y entrega rápida.
+  </footer>
+</div>
+
+<!-- Botón flotante WhatsApp -->
+<a id="wa-float" class="wa-float" href="#" target="_blank" rel="noopener" aria-label="Chatear por WhatsApp">WA</a>
+
+<script>
+  // Inicializa enlaces de WhatsApp
+  (function(){
+    const year = document.getElementById('year'); if(year) year.textContent = new Date().getFullYear();
+    const baseWa = (texto="Hola, deseo más información") => `https://wa.me/${MI_WHATSAPP}?text=${encodeURIComponent(texto)}`;
+    [document.getElementById('btn-whatsapp-top'), document.getElementById('btn-whatsapp-hero'), document.getElementById('wa-float')].forEach(a=>{
+      if(a) a.href = baseWa("Hola, vengo de la web UVEPROTECH")
+    });
+
+    // Botones de compra por producto
+    document.querySelectorAll('#lista-productos .card').forEach(card=>{
+      const nombre = card.dataset.nombre || card.querySelector('.name')?.textContent?.trim() || 'Producto';
+      const precio = card.dataset.precio || card.querySelector('.price')?.textContent?.trim() || '';
+      const msg = `Hola, me interesa el *${nombre}* (${precio}). ¿Está disponible?`;
+
+      const btnComprar = card.querySelector('.comprar');
+      btnComprar?.addEventListener('click', ()=>{ window.open(baseWa(msg), '_blank'); });
+
+      const linkWs = card.querySelector('.ws-link');
+      if(linkWs) linkWs.href = baseWa(msg);
+    });
+  })();
+</script>
+</body>
+</html>
