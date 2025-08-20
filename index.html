@@ -20,13 +20,14 @@
       filter: saturate(110%) blur(0.2px);
     }
     .wrap{max-width:1100px;margin:0 auto;padding:24px}
-    header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px;margin:12px 0 22px 0;background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.18);backdrop-filter: blur(8px);border-radius: var(--radius);box-shadow: var(--shadow);color:#e6f0ff;}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px;margin:12px 0 22px 0;background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.18);backdrop-filter: blur(8px);border-radius: var(--radius);box-shadow: var(--shadow);color:#e6f0ff;flex-wrap:wrap;}
     .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#e8f2ff}
     .logo{width:44px;height:44px;border-radius:12px;background: conic-gradient(from 200deg at 50% 50%, var(--azul-3), var(--azul-2), var(--azul-1)); box-shadow: 0 6px 20px rgba(37,99,235,.35), inset 0 0 24px rgba(255,255,255,.2);}
     .title{font-weight:800;letter-spacing:.2px;font-size: clamp(18px, 2.4vw, 22px)}
     .title small{display:block;font-weight:500;opacity:.8;font-size:12px;margin-top:2px}
-    .cta-group{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{appearance:none;border:none;cursor:pointer;padding:10px 14px;border-radius:12px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:var(--shadow)}
+    .cta-group{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+    .btn{appearance:none;border:none;cursor:pointer;padding:10px 14px;border-radius:12px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;box-shadow:var(--shadow)}
+    .btn img{display:inline-block;vertical-align:middle;}
     .btn-primary{background: linear-gradient(180deg, #60a5fa, #2563eb); color: white}
     .btn-ghost{background: rgba(255,255,255,.08); color:#e6f0ff; border:1px solid rgba(255,255,255,.2)}
     .btn:hover{transform: translateY(-1px)}
@@ -41,12 +42,12 @@
     .name{font-weight:800;font-size:16px}
     .price{font-weight:800;color:#0b5ed7}
     .specs{font-size:13px;color:#334155;opacity:.9}
-    .actions{margin-top:auto;display:flex;gap:8px}
+    .actions{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
     .actions .btn{flex:1;justify-content:center}
     footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
     .wa-float{position:fixed;right:18px;bottom:18px;background:#25D366;color:white;border-radius:999px;width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-weight:900;text-decoration:none;box-shadow:0 12px 26px rgba(0,0,0,.35)}
     .wa-float:active{transform: translateY(1px)}
-    @media (max-width: 860px){.hero{grid-template-columns: 1fr}}
+    @media (max-width: 860px){.hero{grid-template-columns:1fr}.actions .btn{flex:100%}}
   </style>
 </head>
 <body>
@@ -58,7 +59,9 @@
       <div class="title">UVEPROTECH <small>Celulares con garantía</small></div>
     </a>
     <div class="cta-group">
-      <a id="btn-whatsapp-top" class="btn btn-ghost" href="#" target="_blank">💬 WhatsApp</a>
+      <a id="btn-whatsapp-top" class="btn btn-ghost" href="#" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:18px;height:18px;" alt="WhatsApp"/> WhatsApp
+      </a>
       <a class="btn btn-primary" href="#productos">Ver ofertas</a>
     </div>
   </header>
@@ -69,7 +72,9 @@
       <p>Modelos nuevos, garantía y soporte. Te asesoramos por WhatsApp y puedes pagar contraentrega* en zonas disponibles.</p>
       <div class="cta-group">
         <a class="btn btn-primary" href="#productos">Explorar productos</a>
-        <a id="btn-whatsapp-hero" class="btn btn-ghost" href="#" target="_blank">Escríbenos</a>
+        <a id="btn-whatsapp-hero" class="btn btn-ghost" href="#" target="_blank">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:18px;height:18px;" alt="WhatsApp"/> Escríbenos
+        </a>
       </div>
     </div>
     <div class="hero-card">
@@ -93,7 +98,9 @@
         <div class="specs">12GB RAM · 256GB · Cámara 200MP · Snapdragon · Garantía</div>
         <div class="actions">
           <button class="btn btn-primary comprar">Comprar</button>
-          <a class="btn btn-ghost ws-link" href="#" target="_blank">WhatsApp</a>
+          <a class="btn btn-ghost ws-link" href="#" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:16px;height:16px;" alt="WhatsApp"/> WhatsApp
+          </a>
         </div>
       </article>
 
@@ -105,7 +112,9 @@
         <div class="specs">8GB RAM · 512GB · Cámara 48MP · iOS · Garantía</div>
         <div class="actions">
           <button class="btn btn-primary comprar">Comprar</button>
-          <a class="btn btn-ghost ws-link" href="#" target="_blank">WhatsApp</a>
+          <a class="btn btn-ghost ws-link" href="#" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:16px;height:16px;" alt="WhatsApp"/> WhatsApp
+          </a>
         </div>
       </article>
 
@@ -117,7 +126,9 @@
         <div class="specs">12GB RAM · 256GB · Cámara 200MP · MIUI 16 · Garantía</div>
         <div class="actions">
           <button class="btn btn-primary comprar">Comprar</button>
-          <a class="btn btn-ghost ws-link" href="#" target="_blank">WhatsApp</a>
+          <a class="btn btn-ghost ws-link" href="#" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:16px;height:16px;" alt="WhatsApp"/> WhatsApp
+          </a>
         </div>
       </article>
 
@@ -130,7 +141,9 @@
   </footer>
 </div>
 
-<a id="wa-float" class="wa-float" href="#" target="_blank" aria-label="Chatear por WhatsApp">WA</a>
+<a id="wa-float" class="wa-float" href="#" target="_blank" aria-label="Chatear por WhatsApp">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:24px;height:24px;" alt="WhatsApp"/>
+</a>
 
 <script>
   (function(){
