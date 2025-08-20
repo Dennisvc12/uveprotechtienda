@@ -7,139 +7,197 @@
 <style>
 :root{
   --azul-1:#0a2540; --azul-2:#1b4d84; --azul-3:#60a5fa;
-  --blanco:#ffffff; --gris:#eaf2ff; --fondo:#071a2c;
+  --blanco:#ffffff; --gris:#e5e7eb; --texto:#eaf2ff;
+  --shadow:0 10px 25px rgba(2,12,27,.25); --radius:18px;
 }
+*{box-sizing:border-box;margin:0;padding:0}
 body{
-  margin:0; font-family:Arial, sans-serif; background:var(--fondo); color:var(--blanco);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
+  color:var(--texto);
+  background:radial-gradient(1200px 800px at 10% -10%, rgba(96,165,250,.25), transparent 60%),
+             linear-gradient(180deg, #0b1724 0%, #0e2036 40%, #0a1320 100%);
 }
+body::before{
+  content:"";position:fixed;inset:-10%;pointer-events:none;z-index:-1;
+  background: radial-gradient(600px 400px at 80% 10%, rgba(96,165,250,.18), transparent 60%),
+             radial-gradient(800px 500px at 20% 90%, rgba(59,130,246,.12), transparent 65%);
+  filter: saturate(110%) blur(0.2px);
+}
+.wrap{max-width:1100px;margin:0 auto;padding:24px}
 header{
-  background:var(--azul-1); padding:10px 20px; display:flex; justify-content:space-between; align-items:center;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px;
+  margin:12px 0 22px 0;background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));
+  border:1px solid rgba(255,255,255,.18);backdrop-filter: blur(8px);
+  border-radius: var(--radius);box-shadow: var(--shadow);color:#e6f0ff;flex-wrap:wrap;
 }
-header h1{margin:0; font-size:1.4em;}
-.search-container{display:flex; gap:10px; align-items:center;}
-.search-container input{padding:8px 12px; border-radius:12px; border:1px solid #ccc; outline:none;}
-.btn{padding:8px 14px; border:none; border-radius:12px; cursor:pointer; text-decoration:none;}
-.btn-primary{background:var(--azul-2); color:var(--blanco);}
-.btn-whatsapp{background:#25d366; color:#fff;}
-.hero-card{background:linear-gradient(145deg,#102b47,#1a3a5e); padding:20px; border-radius:16px; box-shadow:0 2px 8px rgba(0,0,0,.3);}
-.hero-oferta, .hero-iphone{display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:stretch; margin:20px;}
-@media(max-width:860px){.hero-oferta, .hero-iphone{grid-template-columns:1fr;}}
-.offer img{width:50px; vertical-align:middle; margin-right:8px;}
-.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px;}
-.producto{background:#123456; padding:10px; border-radius:12px; text-align:center;}
-.producto img{width:100%; max-height:160px; object-fit:contain; margin-bottom:10px;}
-/* --- NUEVA BARRA DE NAVEGACIÓN --- */
-#nav-gamas{
-  display:none;
-  background:var(--azul-2);
-  padding:12px 20px;
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  border-bottom:2px solid var(--azul-3);
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#e8f2ff;cursor:pointer;}
+/* QUITAR EL CUADRO BLANCO */
+.logo{display:none;}
+.title{font-weight:800;letter-spacing:.2px;font-size: clamp(18px, 2.4vw, 22px)}
+.title small{display:block;font-weight:500;opacity:.8;font-size:12px;margin-top:2px}
+.search-container{display:flex;align-items:center;gap:10px}
+.search-container input{
+  padding:8px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.3);outline:none;
+  width:180px;background:rgba(255,255,255,.08);color:white;
+  transition: all 0.3s ease;
 }
-#nav-gamas a{
-  color:var(--blanco);
-  background:var(--azul-3);
-  padding:8px 14px;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:bold;
-}
+.search-container input:focus{background:rgba(255,255,255,.12);border-color:#60a5fa;}
+.search-container input::placeholder{color:rgba(255,255,255,.7);}
+.btn{appearance:none;border:none;cursor:pointer;padding:10px 14px;border-radius:12px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;box-shadow:var(--shadow)}
+.btn-primary{background: linear-gradient(180deg, #60a5fa, #2563eb); color: white}
+.btn-whatsapp{background:#25D366;color:white}
+.hero-card{padding:22px;background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.18);backdrop-filter: blur(8px);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:12px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
+.img-wrap{display:flex;align-items:center;justify-content:center;height:210px;border-radius:12px;background: radial-gradient(220px 160px at 50% 40%, #dbeafe, #eff6ff);overflow:hidden}
+.img-wrap img{max-width:92%;max-height:92%;object-fit:contain}
+.offer{display:flex;flex-direction:column;gap:12px;align-items:flex-start;background:linear-gradient(180deg,#2563eb,#60a5fa);padding:16px;border-radius:14px;color:white;box-shadow:var(--shadow)}
+footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
+.wa-float{position:fixed;right:18px;bottom:18px;background:#25D366;color:white;border-radius:999px;width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-weight:900;text-decoration:none;box-shadow:0 12px 26px rgba(0,0,0,.35)}
+@media(max-width:860px){.grid-2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<header>
-  <h1>UVEPROTECH <small style="font-size:.7em;font-weight:normal">Celulares con garantía</small></h1>
-  <div class="search-container">
-    <input type="text" id="buscador" placeholder="Buscar productos...">
-    <a class="btn btn-whatsapp" href="https://wa.me/51949030039?text=Hola,%20quiero%20más%20información" target="_blank">WhatsApp</a>
-  </div>
-</header>
-
-<!-- Nueva barra de navegación gamas -->
-<nav id="nav-gamas">
-  <a href="#" data-gama="inicio">Inicio</a>
-  <a href="#" data-gama="baja">Gama baja</a>
-  <a href="#" data-gama="media">Gama media</a>
-  <a href="#" data-gama="alta">Gama alta</a>
-  <a href="#" data-gama="iphone">iPhones</a>
-</nav>
-
-<!-- Compra inteligente + oferta -->
-<section class="hero-oferta">
-  <div class="hero hero-card" id="inicio-cuadro">
-    <h1>Compra inteligente, entrega rápida en Pisco</h1>
-    <div class="gama-group">
-      <button class="btn btn-primary" data-gama="baja">Gama baja</button>
-      <button class="btn btn-primary" data-gama="media">Gama media</button>
-      <button class="btn btn-primary" data-gama="alta">Gama alta</button>
-      <button class="btn btn-primary" data-gama="iphone">iPhones</button>
+<script>const MI_WHATSAPP="51949030039";</script>
+<div class="wrap">
+  <header>
+    <a class="brand" id="logo-principal" href="#">
+      <div class="title">UVEPROTECH <small>Celulares con garantía</small></div>
+    </a>
+    <div class="search-container">
+      <input type="text" id="buscador" placeholder="Buscar productos...">
+      <a class="btn btn-whatsapp" href="https://wa.me/51949030039?text=Hola,%20quiero%20más%20información" target="_blank">WhatsApp</a>
     </div>
-  </div>
+  </header>
 
-  <section class="offer hero-card" id="oferta-del-dia">
-    <img src="https://images.unsplash.com/photo-1610945264541-a44bd3b6e60e?q=80&w=400" alt="Oferta del día">
-    <div>
-      <strong>Oferta del día:</strong> Samsung Galaxy S24 Ultra a S/ 4,499 <br>
-      <a class="btn btn-whatsapp" id="btn-oferta" href="#" target="_blank">Comprar</a>
+  <!-- Compra inteligente + Oferta en 2 columnas -->
+  <section class="grid-2">
+    <div class="hero hero-card" id="inicio-cuadro">
+      <h1>Compra inteligente, entrega rápida en Pisco</h1>
+      <div class="gama-group" style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" data-gama="baja">Gama baja</button>
+        <button class="btn btn-primary" data-gama="media">Gama media</button>
+        <button class="btn btn-primary" data-gama="alta">Gama alta</button>
+        <button class="btn btn-primary" data-gama="iphone">iPhones</button>
+      </div>
     </div>
+
+    <section class="offer hero-card" id="oferta-del-dia">
+      <img src="https://images.unsplash.com/photo-1610945264541-a44bd3b6e60e?q=80&w=400" alt="Oferta del día">
+      <div>
+        <strong>Oferta del día:</strong> Samsung Galaxy S24 Ultra a S/ 4,499 <br>
+        <a class="btn btn-whatsapp" id="btn-oferta" href="#" target="_blank">Comprar</a>
+      </div>
+    </section>
   </section>
-</section>
 
-<!-- iPhone + productos -->
-<section class="hero-iphone">
-  <div class="hero hero-card" id="img-iphone">
-    <div class="img-wrap" style="height:260px">
-      <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1000&auto=format&fit=crop" alt="Celular moderno"/>
+  <!-- Imagen iPhone + producto en 2 columnas -->
+  <section class="grid-2">
+    <div class="hero hero-card" id="img-iphone">
+      <div class="img-wrap" style="height:260px">
+        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1000&auto=format&fit=crop" alt="Celular moderno"/>
+      </div>
     </div>
-  </div>
 
-  <section id="productos" class="hero-card">
-    <h2 style="margin:0 0 8px;color:#eaf2ff">Productos</h2>
-    <div class="grid" id="lista-productos">
-      <!-- Aquí van tus productos -->
-    </div>
+    <section id="productos" class="hero-card">
+      <h2 style="margin:0 0 8px;color:#eaf2ff">Productos</h2>
+      <div class="grid" id="lista-productos"></div>
+    </section>
   </section>
-</section>
 
-<!-- Botón flotante de WhatsApp -->
-<a href="https://wa.me/51949030039?text=Hola,%20quiero%20más%20información" target="_blank" style="position:fixed;bottom:20px;right:20px;background:#25d366;color:#fff;border-radius:50%;padding:12px 16px;font-size:24px;text-decoration:none;">💬</a>
+  <footer>
+    © <span id="year"></span> UVEPROTECH — Atención por WhatsApp y entrega rápida.
+  </footer>
+</div>
+
+<a id="wa-float" class="wa-float" href="#" target="_blank" aria-label="Chatear por WhatsApp">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:24px;height:24px;" alt="WhatsApp"/>
+</a>
 
 <script>
-// Productos de ejemplo
-const productos = [
-  {nombre:"Samsung Galaxy A14", precio:"S/ 899", gama:"baja", img:"https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a14-4g-1.jpg"},
-  {nombre:"Xiaomi Redmi Note 12", precio:"S/ 1099", gama:"media", img:"https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-redmi-note-12-4g-1.jpg"},
-  {nombre:"iPhone 14 Pro", precio:"S/ 4999", gama:"alta", img:"https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-14-pro-1.jpg"},
-  {nombre:"iPhone SE", precio:"S/ 2599", gama:"iphone", img:"https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-se-2022-1.jpg"},
-];
-const lista=document.getElementById("lista-productos");
-function render(gama="all"){
-  lista.innerHTML="";
-  productos.filter(p=>gama=="all"||p.gama==gama).forEach(p=>{
-    lista.innerHTML+=`
-      <div class="producto">
-        <img src="${p.img}" alt="${p.nombre}">
-        <h3>${p.nombre}</h3>
-        <p>${p.precio}</p>
-        <a class="btn btn-whatsapp" href="https://wa.me/51949030039?text=Hola,%20me%20interesa%20${encodeURIComponent(p.nombre)}" target="_blank">Añadir al WhatsApp</a>
-      </div>`;
+(function(){
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const baseWa = (msg="Hola")=>`https://wa.me/${MI_WHATSAPP}?text=${encodeURIComponent(msg)}`;
+  ['wa-float','btn-oferta'].forEach(id=>{
+    const a=document.getElementById(id);
+    if(a) a.href = baseWa("Hola, estoy interesado en la oferta del Samsung Galaxy S24 Ultra");
   });
-}
-render();
 
-// Mostrar barra al hacer clic en botones
-document.querySelectorAll("[data-gama]").forEach(btn=>{
-  btn.addEventListener("click",e=>{
-    e.preventDefault();
-    const gama=e.target.getAttribute("data-gama");
-    if(gama=="inicio"){ render("all"); document.getElementById("nav-gamas").style.display="none"; return;}
-    render(gama);
-    document.getElementById("nav-gamas").style.display="flex";
-    window.scrollTo({top:0,behavior:"smooth"});
+  const productosPorGama = {
+    baja:[
+      {nombre:"Samsung Galaxy A14", precio:"S/ 799", img:"https://images.unsplash.com/photo-1580910051071-4b7ab3e16e84?q=80&w=400", specs:"4GB RAM · 64GB · Cámara 50MP · Android"},
+      {nombre:"Xiaomi Redmi 12", precio:"S/ 699", img:"https://images.unsplash.com/photo-1611095973516-445c7c97f60b?q=80&w=400", specs:"4GB RAM · 128GB · Cámara 50MP · MIUI"},
+      {nombre:"Motorola G32", precio:"S/ 749", img:"https://images.unsplash.com/photo-1612292299840-395d2ed9f8cb?q=80&w=400", specs:"4GB RAM · 64GB · Cámara 50MP · Android"}
+    ],
+    media:[
+      {nombre:"Samsung Galaxy S23", precio:"S/ 2,199", img:"https://images.unsplash.com/photo-1687658620843-7f2abf1c99f1?q=80&w=400", specs:"8GB RAM · 128GB · Cámara 50MP · Android"},
+      {nombre:"Xiaomi 13", precio:"S/ 1,999", img:"https://images.unsplash.com/photo-1685306144142-89a0243d08e7?q=80&w=400", specs:"8GB RAM · 256GB · Cámara 50MP · MIUI"},
+      {nombre:"Motorola Edge 40", precio:"S/ 1,899", img:"https://images.unsplash.com/photo-1686822452625-7b9e3d6bbf7c?q=80&w=400", specs:"8GB RAM · 128GB · Cámara 50MP · Android"}
+    ],
+    alta:[
+      {nombre:"Samsung Galaxy S24 Ultra", precio:"S/ 4,899", img:"https://images.unsplash.com/photo-1610945264541-a44bd3b6e60e?q=80&w=400", specs:"12GB RAM · 256GB · Cámara 200MP · Snapdragon"},
+      {nombre:"Xiaomi 14 Pro", precio:"S/ 4,499", img:"https://images.unsplash.com/photo-1687532553843-fd4bb9455c62?q=80&w=400", specs:"12GB RAM · 512GB · Cámara 200MP · MIUI"},
+      {nombre:"Motorola Edge 50 Pro", precio:"S/ 4,299", img:"https://images.unsplash.com/photo-1687022253450-b5f2b6f5a8c1?q=80&w=400", specs:"12GB RAM · 256GB · Cámara 200MP · Android"}
+    ],
+    iphone:[
+      {nombre:"iPhone 15 Pro Max", precio:"S/ 5,999", img:"https://images.unsplash.com/photo-1688052717085-23f6b1e1aee8?q=80&w=400", specs:"8GB RAM · 512GB · Cámara 48MP · iOS"},
+      {nombre:"iPhone 15 Pro", precio:"S/ 5,299", img:"https://images.unsplash.com/photo-1688052717084-1f6b1e1aee8?q=80&w=400", specs:"8GB RAM · 256GB · Cámara 48MP · iOS"},
+      {nombre:"iPhone 14 Plus", precio:"S/ 4,199", img:"https://images.unsplash.com/photo-1687012717088-21f6b1e1aee9?q=80&w=400", specs:"6GB RAM · 256GB · Cámara 48MP · iOS"}
+    ]
+  };
+
+  const lista = document.getElementById('lista-productos');
+
+  function mostrarProductos(productos){
+    lista.innerHTML = '';
+    productos.forEach(p=>{
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="img-wrap">
+          <img src="${p.img}" alt="${p.nombre}">
+        </div>
+        <div class="name">${p.nombre}</div>
+        <div class="price">${p.precio}</div>
+        <div class="specs">${p.specs}</div>
+        <div class="actions">
+          <a class="btn btn-whatsapp" href="https://wa.me/${MI_WHATSAPP}?text=Hola,%20estoy%20interesado%20en%20el%20${encodeURIComponent(p.nombre)}" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:18px;height:18px;" alt="WhatsApp"/> Comprar
+          </a>
+        </div>
+      `;
+      lista.appendChild(card);
+    });
+  }
+
+  // Mostrar producto destacado (primero de gama alta)
+  mostrarProductos([productosPorGama.alta[0]]);
+
+  // Logo clicable regresa al inicio
+  document.getElementById('logo-principal').addEventListener('click',()=>{location.reload();});
+
+  // Botones de gama
+  document.querySelectorAll('#inicio-cuadro .btn-primary').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const gama = btn.getAttribute('data-gama');
+      document.getElementById('inicio-cuadro').style.display='none';
+      document.getElementById('oferta-del-dia').style.display='none';
+      document.getElementById('img-iphone').style.display='none';
+      mostrarProductos(productosPorGama[gama]);
+    });
   });
-});
+
+  // Buscador
+  const buscador = document.getElementById('buscador');
+  buscador.addEventListener('input',()=>{
+    const termino = buscador.value.toLowerCase();
+    let filtrados = [];
+    Object.values(productosPorGama).flat().forEach(p=>{
+      if(p.nombre.toLowerCase().includes(termino)) filtrados.push(p);
+    });
+    mostrarProductos(filtrados.length ? filtrados : [{nombre:"No se encontró producto", precio:"", img:"", specs:""}]);
+  });
+
+})();
 </script>
 </body>
 </html>
