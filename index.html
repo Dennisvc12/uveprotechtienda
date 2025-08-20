@@ -199,6 +199,9 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
   document.querySelectorAll('.gama-group .btn-primary').forEach(btn=>{
     btn.addEventListener('click',()=>{
       const gama = btn.getAttribute('data-gama');
+      // Ocultar hero (compra inteligente + imagen)
+      document.querySelector('.hero').style.display = 'none';
+      // Mostrar solo productos de la gama seleccionada
       mostrarProductos(productosPorGama[gama]);
     });
   });
