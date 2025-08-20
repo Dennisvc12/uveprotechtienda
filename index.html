@@ -30,11 +30,11 @@ header{
   border:1px solid rgba(255,255,255,.18);backdrop-filter: blur(8px);
   border-radius: var(--radius);box-shadow: var(--shadow);color:#e6f0ff;flex-wrap:wrap;
 }
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#e8f2ff}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#e8f2ff;cursor:pointer;}
 .logo{width:44px;height:44px;border-radius:12px;background:#ffffff url('https://upload.wikimedia.org/wikipedia/commons/3/3b/Ic_baseline_smartphone_48px.svg') center/cover no-repeat; box-shadow: 0 6px 20px rgba(37,99,235,.35);}
 .title{font-weight:800;letter-spacing:.2px;font-size: clamp(18px, 2.4vw, 22px)}
 .title small{display:block;font-weight:500;opacity:.8;font-size:12px;margin-top:2px}
-.search-container{margin-left:auto;display:flex;align-items:center;position:relative}
+.search-container{display:flex;align-items:center;position:relative}
 .search-container input{
   padding:8px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.3);outline:none;
   width:180px;background:rgba(255,255,255,.08);color:white;
@@ -47,7 +47,7 @@ header{
 .btn-primary{background: linear-gradient(180deg, #60a5fa, #2563eb); color: white}
 .btn-ghost{background: rgba(255,255,255,.08); color:#e6f0ff; border:1px solid rgba(255,255,255,.2)}
 .btn:hover{transform: translateY(-1px)}
-.hero{color:#eaf2ff; display:grid; grid-template-columns: 1.2fr .8fr; gap:24px; align-items:center; margin: 6px 0 16px}
+.hero{color:#eaf2ff; display:grid; gap:24px; align-items:center; margin: 6px 0 16px}
 .hero-card{padding:22px;background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.18);backdrop-filter: blur(8px);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:12px}
 .hero h1{margin:0 0 8px;font-size: clamp(22px, 3.4vw, 34px)}
 .gama-group{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
@@ -72,13 +72,16 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
   .search-container input{width:140px;}
   .offer{flex-direction:column;align-items:flex-start}
 }
+@media (min-width: 861px){
+  .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;}
+}
 </style>
 </head>
 <body>
 <script>const MI_WHATSAPP="51949030039";</script>
 <div class="wrap">
   <header>
-    <a class="brand" href="#">
+    <a class="brand" id="logo-principal" href="#">
       <div class="logo"></div>
       <div class="title">UVEPROTECH <small>Celulares con garantía</small></div>
     </a>
@@ -86,13 +89,9 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
     <div class="search-container">
       <input type="text" id="buscador" placeholder="Buscar productos...">
     </div>
-
-    <a id="btn-whatsapp-top" class="btn btn-ghost" href="#" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:18px;height:18px;" alt="WhatsApp"/> WhatsApp
-    </a>
   </header>
 
-  <!-- Compra inteligente + botones gamas en la página principal -->
+  <!-- Compra inteligente + botones gamas -->
   <section class="hero hero-card" id="inicio-cuadro">
     <h1>Compra inteligente, entrega rápida en Pisco</h1>
     <div class="gama-group">
@@ -112,16 +111,17 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
     </div>
   </section>
 
-  <!-- Imagen de iPhone -->
+  <!-- Imagen iPhone -->
   <section class="hero hero-card" id="img-iphone">
     <div class="img-wrap" style="height:260px">
       <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1000&auto=format&fit=crop" alt="Celular moderno"/>
     </div>
   </section>
 
-  <!-- Nuevo cuadro de navegación de gamas al filtrar -->
+  <!-- Cuadro de navegación gamas -->
   <section class="hero-card" id="gama-navegacion" style="display:none;">
     <div class="gama-group">
+      <button class="btn btn-primary" id="btn-inicio">Inicio</button>
       <button class="btn btn-primary" data-gama="baja">Gama baja</button>
       <button class="btn btn-primary" data-gama="media">Gama media</button>
       <button class="btn btn-primary" data-gama="alta">Gama alta</button>
@@ -148,7 +148,7 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
 (function(){
   document.getElementById('year').textContent = new Date().getFullYear();
   const baseWa = (msg="Hola")=>`https://wa.me/${MI_WHATSAPP}?text=${encodeURIComponent(msg)}`;
-  ['btn-whatsapp-top','wa-float','btn-oferta'].forEach(id=>{
+  ['wa-float','btn-oferta'].forEach(id=>{
     const a=document.getElementById(id);
     if(a) a.href = baseWa("Hola, estoy interesado en la oferta del Samsung Galaxy S24 Ultra");
   });
@@ -203,6 +203,9 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
   // Mostrar producto de oferta al inicio
   mostrarProductos([productosPorGama.alta[0]]);
 
+  // Logo clicable regresa al inicio
+  document.getElementById('logo-principal').addEventListener('click',()=>{location.reload();});
+
   // Botones de gama del cuadro principal
   document.querySelectorAll('#inicio-cuadro .btn-primary').forEach(btn=>{
     btn.addEventListener('click',()=>{
@@ -215,23 +218,30 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
     });
   });
 
+  // Botones de gama del cuadro
   // Botones de gama del cuadro de navegación
   document.querySelectorAll('#gama-navegacion .btn-primary').forEach(btn=>{
     btn.addEventListener('click',()=>{
+      if(btn.id === 'btn-inicio'){
+        location.reload(); // Regresa a la página principal
+        return;
+      }
       const gama = btn.getAttribute('data-gama');
       mostrarProductos(productosPorGama[gama]);
     });
   });
 
-  // Buscador
+  // Buscador en tiempo real
   const buscador = document.getElementById('buscador');
   buscador.addEventListener('input',()=>{
-    const term = buscador.value.toLowerCase();
-    let todos = [];
-    Object.values(productosPorGama).forEach(arr=> todos = todos.concat(arr));
-    const filtrados = todos.filter(p => p.nombre.toLowerCase().includes(term));
-    mostrarProductos(filtrados.length? filtrados : [{nombre:"No se encontró producto", precio:"", img:"", specs:""}]);
+    const termino = buscador.value.toLowerCase();
+    let filtrados = [];
+    Object.values(productosPorGama).flat().forEach(p=>{
+      if(p.nombre.toLowerCase().includes(termino)) filtrados.push(p);
+    });
+    mostrarProductos(filtrados.length ? filtrados : [{nombre:"No se encontró producto", precio:"", img:"", specs:""}]);
   });
+
 })();
 </script>
 </body>
