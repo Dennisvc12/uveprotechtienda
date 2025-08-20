@@ -48,9 +48,9 @@ header{
 .btn-ghost{background: rgba(255,255,255,.08); color:#e6f0ff; border:1px solid rgba(255,255,255,.2)}
 .btn:hover{transform: translateY(-1px)}
 .hero{color:#eaf2ff; display:grid; grid-template-columns: 1.2fr .8fr; gap:24px; align-items:center; margin: 6px 0 16px}
-.hero-card{padding:22px;background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.18);backdrop-filter: blur(8px);border-radius:var(--radius);box-shadow:var(--shadow)}
+.hero-card{padding:22px;background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.18);backdrop-filter: blur(8px);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:12px}
 .hero h1{margin:0 0 8px;font-size: clamp(22px, 3.4vw, 34px)}
-.hero .gama-group{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.gama-group{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
 .grid{display:grid;grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));gap:16px;margin-top:12px}
 .card{display:flex;flex-direction:column;gap:10px;background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.88));border:1px solid rgba(15,23,42,.06);border-radius:16px;box-shadow: var(--shadow);padding:14px}
 .img-wrap{display:flex;align-items:center;justify-content:center;height:210px;border-radius:12px;background: radial-gradient(220px 160px at 50% 40%, #dbeafe, #eff6ff);overflow:hidden}
@@ -92,26 +92,13 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
     </a>
   </header>
 
-  <!-- Cuadro de Compra inteligente -->
-  <section class="hero">
-    <div class="hero-card">
-      <h1>Compra inteligente, entrega rápida en Pisco</h1>
-      <div class="gama-group">
-        <button class="btn btn-primary" data-gama="baja">Gama baja</button>
-        <button class="btn btn-primary" data-gama="media">Gama media</button>
-        <button class="btn btn-primary" data-gama="alta">Gama alta</button>
-        <button class="btn btn-primary" data-gama="iphone">iPhones</button>
-      </div>
-    </div>
-    <div class="hero-card">
-      <div class="img-wrap" style="height:260px">
-        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1000&auto=format&fit=crop" alt="Celular moderno"/>
-      </div>
-    </div>
+  <!-- Compra inteligente -->
+  <section class="hero hero-card">
+    <h1>Compra inteligente, entrega rápida en Pisco</h1>
   </section>
 
-  <!-- Oferta del día en cuadro independiente -->
-  <section class="offer">
+  <!-- Oferta del día (solo visible en página principal) -->
+  <section class="offer" id="oferta-del-dia">
     <img src="https://images.unsplash.com/photo-1610945264541-a44bd3b6e60e?q=80&w=400" alt="Oferta del día">
     <div>
       <strong>Oferta del día:</strong> Samsung Galaxy S24 Ultra a S/ 4,499 <br>
@@ -119,12 +106,27 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
     </div>
   </section>
 
+  <!-- Imagen de iPhone -->
+  <section class="hero hero-card">
+    <div class="img-wrap" style="height:260px">
+      <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1000&auto=format&fit=crop" alt="Celular moderno"/>
+    </div>
+  </section>
+
+  <!-- Cuadro de gamas siempre visible -->
+  <section class="hero-card">
+    <div class="gama-group">
+      <button class="btn btn-primary" data-gama="baja">Gama baja</button>
+      <button class="btn btn-primary" data-gama="media">Gama media</button>
+      <button class="btn btn-primary" data-gama="alta">Gama alta</button>
+      <button class="btn btn-primary" data-gama="iphone">iPhones</button>
+    </div>
+  </section>
+
   <!-- Productos -->
-  <section id="productos" class="hero-card" style="margin-top:8px">
+  <section id="productos" class="hero-card">
     <h2 style="margin:0 0 8px;color:#eaf2ff">Productos</h2>
-    <p style="margin:0 0 12px;color:#cfe3ff">Filtra por gama o busca un producto:</p>
     <div class="grid" id="lista-productos"></div>
-    <p style="font-size:12px;color:#c7dbff;margin-top:12px">*Consulta cobertura y condiciones. Imágenes referenciales.</p>
   </section>
 
   <footer>
@@ -192,21 +194,20 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
     });
   }
 
-  // Mostrar producto de oferta al inicio de la sección productos
+  // Mostrar producto de oferta al inicio
   mostrarProductos([productosPorGama.alta[0]]);
 
   // Botones de gama
   document.querySelectorAll('.gama-group .btn-primary').forEach(btn=>{
     btn.addEventListener('click',()=>{
       const gama = btn.getAttribute('data-gama');
-      // Ocultar hero (compra inteligente + imagen)
-      document.querySelector('.hero').style.display = 'none';
-      // Mostrar solo productos de la gama seleccionada
+      // Ocultar solo oferta del día al filtrar gama
+      document.getElementById('oferta-del-dia').style.display = 'none';
       mostrarProductos(productosPorGama[gama]);
     });
   });
 
-  // Buscador en tiempo real
+  // Buscador
   const buscador = document.getElementById('buscador');
   buscador.addEventListener('input',()=>{
     const term = buscador.value.toLowerCase();
@@ -215,7 +216,6 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
     const filtrados = todos.filter(p => p.nombre.toLowerCase().includes(term));
     mostrarProductos(filtrados.length ? filtrados : []);
   });
-
 })();
 </script>
 </body>
