@@ -92,14 +92,6 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
     </a>
   </header>
 
-  <div class="offer">
-    <img src="https://images.unsplash.com/photo-1610945264541-a44bd3b6e60e?q=80&w=400" alt="Oferta del día">
-    <div>
-      <strong>Oferta del día:</strong> Samsung Galaxy S24 Ultra a S/ 4,499 <br>
-      <a class="btn btn-whatsapp" href="https://wa.me/51949030039?text=Hola,%20estoy%20interesado%20en%20la%20oferta%20del%20Samsung%20Galaxy%20S24%20Ultra" target="_blank">Comprar</a>
-    </div>
-  </div>
-
   <section class="hero">
     <div class="hero-card">
       <h1>Compra inteligente, entrega rápida en Pisco</h1>
@@ -108,6 +100,15 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
         <button class="btn btn-primary" data-gama="media">Gama media</button>
         <button class="btn btn-primary" data-gama="alta">Gama alta</button>
         <button class="btn btn-primary" data-gama="iphone">iPhones</button>
+      </div>
+
+      <!-- Oferta del día debajo del cuadro -->
+      <div class="offer" id="oferta-del-dia">
+        <img src="https://images.unsplash.com/photo-1610945264541-a44bd3b6e60e?q=80&w=400" alt="Oferta del día">
+        <div>
+          <strong>Oferta del día:</strong> Samsung Galaxy S24 Ultra a S/ 4,499 <br>
+          <a class="btn btn-whatsapp" id="btn-oferta" href="#" target="_blank">Comprar</a>
+        </div>
       </div>
     </div>
     <div class="hero-card">
@@ -137,9 +138,9 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
 (function(){
   document.getElementById('year').textContent = new Date().getFullYear();
   const baseWa = (msg="Hola")=>`https://wa.me/${MI_WHATSAPP}?text=${encodeURIComponent(msg)}`;
-  ['btn-whatsapp-top','wa-float'].forEach(id=>{
+  ['btn-whatsapp-top','wa-float','btn-oferta'].forEach(id=>{
     const a=document.getElementById(id);
-    if(a) a.href = baseWa("Hola, vengo de la web UVEPROTECH")
+    if(a) a.href = baseWa("Hola, estoy interesado en la oferta del Samsung Galaxy S24 Ultra");
   });
 
   const productosPorGama = {
@@ -189,7 +190,7 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
     });
   }
 
-  // Mostrar producto de oferta al inicio
+  // Mostrar producto de oferta debajo del cuadro
   mostrarProductos([productosPorGama.alta[0]]);
 
   // Botones de gama
@@ -207,7 +208,7 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
     let todos = [];
     Object.values(productosPorGama).forEach(arr=> todos = todos.concat(arr));
     const filtrados = todos.filter(p => p.nombre.toLowerCase().includes(term));
-    mostrarProductos(filtrados);
+    mostrarProductos(filtrados.length ? filtrados : []);
   });
 
 })();
