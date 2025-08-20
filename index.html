@@ -1,80 +1,80 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UVEPROTECH — Venta de Celulares</title>
-  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABnElEQVR4nO2WsUoDQRCG33sIuRQLi8SGBxBY+QCYL7IAAm5ABcAuJAbEFiySAmwPQZ9yzcDTbi9ap/Oq93n97rW7be62reVfUjAlrxp5m1oDErAK3AM4gGbwAqVFlYAOcC3tgiUIVKEC7szBiKOIuUE3YqAi4ChUVgMWQ6wGC9dxQmEJkKuAKb8Q7cK+qMHMLTCk+uIoaT0RBjcJkFrjbzqChQZmDYcODFgwEbwXc0Q3yoD0mDQhfGu8lfAE0odJ7V5yM28fY8AKOxPzL5vUEM8y7r7NmncsTnIviFgGehOBzy7mMC4Csdo25Ge82AyPvgqfXJEBDF4EMWvwF5S4bnzM73AKrZxz+ROgDy3ak6B9oJe7XVDOfTe2oGTbsoxE1oCs1CdmphdcsyBMwCW2RGnLbw5+gYogwIf79UzMUN5mKwXqHDwvtxLtsEqw8ibEFv4BEJgFuWUpQBAAAAABJRU5ErkJggg==" />
-  <style>
-    :root{
-      --azul-1:#0a2540; --azul-2:#1b4d84; --azul-3:#60a5fa; --blanco:#ffffff;
-      --gris:#e5e7eb; --texto:#0f172a; --shadow:0 10px 25px rgba(2,12,27,.25); --radius:18px;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
-      color:var(--texto);
-      background:radial-gradient(1200px 800px at 10% -10%, rgba(96,165,250,.25), transparent 60%), linear-gradient(180deg, #0b1724 0%, #0e2036 40%, #0a1320 100%);
-    }
-    body::before{content:"";position:fixed;inset:-10%;pointer-events:none;z-index:-1;
-      background: radial-gradient(600px 400px at 80% 10%, rgba(96,165,250,.18), transparent 60%), radial-gradient(800px 500px at 20% 90%, rgba(59,130,246,.12), transparent 65%);
-      filter: saturate(110%) blur(0.2px);
-    }
-    .wrap{max-width:1100px;margin:0 auto;padding:24px}
-    header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px;margin:12px 0 22px 0;background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.18);backdrop-filter: blur(8px);border-radius: var(--radius);box-shadow: var(--shadow);color:#e6f0ff;flex-wrap:wrap;}
-    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#e8f2ff}
-    .logo{width:44px;height:44px;border-radius:12px;background: conic-gradient(from 200deg at 50% 50%, var(--azul-3), var(--azul-2), var(--azul-1)); box-shadow: 0 6px 20px rgba(37,99,235,.35), inset 0 0 24px rgba(255,255,255,.2);}
-    .title{font-weight:800;letter-spacing:.2px;font-size: clamp(18px, 2.4vw, 22px)}
-    .title small{display:block;font-weight:500;opacity:.8;font-size:12px;margin-top:2px}
-    .cta-group{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
-    .btn{appearance:none;border:none;cursor:pointer;padding:10px 14px;border-radius:12px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;box-shadow:var(--shadow)}
-    .btn img{display:inline-block;vertical-align:middle;}
-    .btn-primary{background: linear-gradient(180deg, #60a5fa, #2563eb); color: white}
-    .btn-ghost{background: rgba(255,255,255,.08); color:#e6f0ff; border:1px solid rgba(255,255,255,.2)}
-    .btn:hover{transform: translateY(-1px)}
-    .hero{color:#eaf2ff; display:grid; grid-template-columns: 1.2fr .8fr; gap:24px; align-items:center; margin: 6px 0 16px}
-    .hero-card{padding:22px;background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.18);backdrop-filter: blur(8px);border-radius:var(--radius);box-shadow:var(--shadow)}
-    .hero h1{margin:0 0 8px;font-size: clamp(22px, 3.4vw, 34px)}
-    .hero p{margin:0 0 14px;opacity:.92}
-    .grid{display:grid;grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));gap:16px;margin-top:12px}
-    .card{display:flex;flex-direction:column;gap:10px;background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.88));border:1px solid rgba(15,23,42,.06);border-radius:16px;box-shadow: var(--shadow);padding:14px}
-    .img-wrap{display:flex;align-items:center;justify-content:center;height:210px;border-radius:12px;background: radial-gradient(220px 160px at 50% 40%, #dbeafe, #eff6ff);overflow:hidden}
-    .img-wrap img{max-width:92%;max-height:92%;object-fit:contain;filter: drop-shadow(0 10px 16px rgba(0,0,0,.15))}
-    .name{font-weight:800;font-size:16px}
-    .price{font-weight:800;color:#0b5ed7}
-    .specs{font-size:13px;color:#334155;opacity:.9}
-    .actions{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
-    .actions .btn{flex:1;justify-content:center}
-    footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
-    .wa-float{position:fixed;right:18px;bottom:18px;background:#25D366;color:white;border-radius:999px;width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-weight:900;text-decoration:none;box-shadow:0 12px 26px rgba(0,0,0,.35)}
-    .wa-float:active{transform: translateY(1px)}
-    @media (max-width: 860px){.hero{grid-template-columns:1fr}.actions .btn{flex:100%}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UVEPROTECH — Venta de Celulares</title>
+<style>
+:root{
+  --azul-1:#0a2540; --azul-2:#1b4d84; --azul-3:#60a5fa;
+  --blanco:#ffffff; --gris:#e5e7eb; --texto:#eaf2ff;
+  --shadow:0 10px 25px rgba(2,12,27,.25); --radius:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
+  color:var(--texto);
+  background:radial-gradient(1200px 800px at 10% -10%, rgba(96,165,250,.25), transparent 60%),
+             linear-gradient(180deg, #0b1724 0%, #0e2036 40%, #0a1320 100%);
+}
+body::before{
+  content:"";position:fixed;inset:-10%;pointer-events:none;z-index:-1;
+  background: radial-gradient(600px 400px at 80% 10%, rgba(96,165,250,.18), transparent 60%),
+             radial-gradient(800px 500px at 20% 90%, rgba(59,130,246,.12), transparent 65%);
+  filter: saturate(110%) blur(0.2px);
+}
+.wrap{max-width:1100px;margin:0 auto;padding:24px}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px;margin:12px 0 22px 0;background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.18);backdrop-filter: blur(8px);border-radius: var(--radius);box-shadow: var(--shadow);color:#e6f0ff;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#e8f2ff}
+.logo{width:44px;height:44px;border-radius:12px;background: conic-gradient(from 200deg at 50% 50%, var(--azul-3), var(--azul-2), var(--azul-1)); box-shadow: 0 6px 20px rgba(37,99,235,.35), inset 0 0 24px rgba(255,255,255,.2);}
+.title{font-weight:800;letter-spacing:.2px;font-size: clamp(18px, 2.4vw, 22px)}
+.title small{display:block;font-weight:500;opacity:.8;font-size:12px;margin-top:2px}
+.btn{appearance:none;border:none;cursor:pointer;padding:10px 14px;border-radius:12px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;box-shadow:var(--shadow)}
+.btn img{display:inline-block;vertical-align:middle;}
+.btn-primary{background: linear-gradient(180deg, #60a5fa, #2563eb); color: white}
+.btn-ghost{background: rgba(255,255,255,.08); color:#e6f0ff; border:1px solid rgba(255,255,255,.2)}
+.btn:hover{transform: translateY(-1px)}
+.hero{color:#eaf2ff; display:grid; grid-template-columns: 1.2fr .8fr; gap:24px; align-items:center; margin: 6px 0 16px}
+.hero-card{padding:22px;background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.18);backdrop-filter: blur(8px);border-radius:var(--radius);box-shadow:var(--shadow)}
+.hero h1{margin:0 0 8px;font-size: clamp(22px, 3.4vw, 34px)}
+.hero .gama-group{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.grid{display:grid;grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));gap:16px;margin-top:12px}
+.card{display:flex;flex-direction:column;gap:10px;background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.88));border:1px solid rgba(15,23,42,.06);border-radius:16px;box-shadow: var(--shadow);padding:14px}
+.img-wrap{display:flex;align-items:center;justify-content:center;height:210px;border-radius:12px;background: radial-gradient(220px 160px at 50% 40%, #dbeafe, #eff6ff);overflow:hidden}
+.img-wrap img{max-width:92%;max-height:92%;object-fit:contain;filter: drop-shadow(0 10px 16px rgba(0,0,0,.15))}
+.name{font-weight:800;font-size:16px}
+.price{font-weight:800;color:#0b5ed7}
+.specs{font-size:13px;color:#334155;opacity:.9}
+.actions{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+.actions .btn{flex:1;justify-content:center}
+.actions .btn-whatsapp{background:#25D366;color:white} /* WhatsApp visible */
+footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
+.wa-float{position:fixed;right:18px;bottom:18px;background:#25D366;color:white;border-radius:999px;width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-weight:900;text-decoration:none;box-shadow:0 12px 26px rgba(0,0,0,.35)}
+.wa-float:active{transform: translateY(1px)}
+@media (max-width: 860px){.hero{grid-template-columns:1fr}.actions .btn{flex:100%}}
+</style>
 </head>
 <body>
-<script>const MI_WHATSAPP = "51949030039";</script>
+<script>const MI_WHATSAPP="51949030039";</script>
 <div class="wrap">
   <header>
     <a class="brand" href="#">
       <div class="logo"></div>
       <div class="title">UVEPROTECH <small>Celulares con garantía</small></div>
     </a>
-    <div class="cta-group">
-      <a id="btn-whatsapp-top" class="btn btn-ghost" href="#" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:18px;height:18px;" alt="WhatsApp"/> WhatsApp
-      </a>
-      <a class="btn btn-primary" href="#productos">Ver ofertas</a>
-    </div>
+    <a id="btn-whatsapp-top" class="btn btn-ghost" href="#" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:18px;height:18px;" alt="WhatsApp"/> WhatsApp
+    </a>
   </header>
 
   <section class="hero">
     <div class="hero-card">
       <h1>Compra inteligente, entrega rápida en Pisco</h1>
-      <p>Modelos nuevos, garantía y soporte. Te asesoramos por WhatsApp y puedes pagar contraentrega* en zonas disponibles.</p>
-      <div class="cta-group">
-        <a class="btn btn-primary" href="#productos">Explorar productos</a>
-        <a id="btn-whatsapp-hero" class="btn btn-ghost" href="#" target="_blank">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:18px;height:18px;" alt="WhatsApp"/> Escríbenos
-        </a>
+      <div class="gama-group">
+        <button class="btn btn-primary" data-gama="baja">Gama baja</button>
+        <button class="btn btn-primary" data-gama="media">Gama media</button>
+        <button class="btn btn-primary" data-gama="alta">Gama alta</button>
+        <button class="btn btn-primary" data-gama="iphone">iPhones</button>
       </div>
     </div>
     <div class="hero-card">
@@ -86,52 +86,61 @@
 
   <section id="productos" class="hero-card" style="margin-top:8px">
     <h2 style="margin:0 0 8px;color:#eaf2ff">Productos</h2>
-    <p style="margin:0 0 12px;color:#cfe3ff">Sigue la plantilla para agregar o quitar equipos sin que se rompa el diseño.</p>
-
+    <p style="margin:0 0 12px;color:#cfe3ff">Filtra por gama para ver los productos:</p>
     <div class="grid" id="lista-productos">
+      <!-- PRODUCTOS INICIALES -->
+      <!-- Ejemplo de producto: agrega "data-gama" para filtrar -->
+      <article class="card" data-gama="baja" data-nombre="Samsung Galaxy A14" data-precio="S/ 799">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1580910051071-4b7ab3e16e84?q=80&w=400" alt="Samsung Galaxy A14"/></div>
+        <div class="name">Samsung Galaxy A14</div>
+        <div class="price">S/ 799</div>
+        <div class="specs">4GB RAM · 64GB · Cámara 50MP · Android</div>
+        <div class="actions">
+          <button class="btn btn-primary comprar">Comprar</button>
+          <a class="btn btn-whatsapp ws-link" href="#" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:16px;height:16px;" alt="WhatsApp"/> WhatsApp
+          </a>
+        </div>
+      </article>
 
-      <!-- PRODUCTO 1 -->
-      <article class="card" data-nombre="Samsung Galaxy S24 Ultra" data-precio="S/ 4,899">
-        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1610945264541-a44bd3b6e60e?q=80&w=400&auto=format&fit=crop" alt="Samsung Galaxy S24 Ultra"/></div>
+      <article class="card" data-gama="media" data-nombre="Samsung Galaxy S23" data-precio="S/ 2,199">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1687658620843-7f2abf1c99f1?q=80&w=400" alt="Samsung Galaxy S23"/></div>
+        <div class="name">Samsung Galaxy S23</div>
+        <div class="price">S/ 2,199</div>
+        <div class="specs">8GB RAM · 128GB · Cámara 50MP · Android</div>
+        <div class="actions">
+          <button class="btn btn-primary comprar">Comprar</button>
+          <a class="btn btn-whatsapp ws-link" href="#" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:16px;height:16px;" alt="WhatsApp"/> WhatsApp
+          </a>
+        </div>
+      </article>
+
+      <article class="card" data-gama="alta" data-nombre="Samsung Galaxy S24 Ultra" data-precio="S/ 4,899">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1610945264541-a44bd3b6e60e?q=80&w=400" alt="Samsung Galaxy S24 Ultra"/></div>
         <div class="name">Samsung Galaxy S24 Ultra</div>
         <div class="price">S/ 4,899</div>
-        <div class="specs">12GB RAM · 256GB · Cámara 200MP · Snapdragon · Garantía</div>
+        <div class="specs">12GB RAM · 256GB · Cámara 200MP · Snapdragon</div>
         <div class="actions">
           <button class="btn btn-primary comprar">Comprar</button>
-          <a class="btn btn-ghost ws-link" href="#" target="_blank">
+          <a class="btn btn-whatsapp ws-link" href="#" target="_blank">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:16px;height:16px;" alt="WhatsApp"/> WhatsApp
           </a>
         </div>
       </article>
 
-      <!-- PRODUCTO 2 -->
-      <article class="card" data-nombre="iPhone 15 Pro Max" data-precio="S/ 5,999">
-        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1687658620843-7f2abf1c99f1?q=80&w=400&auto=format&fit=crop" alt="iPhone 15 Pro Max"/></div>
+      <article class="card" data-gama="iphone" data-nombre="iPhone 15 Pro Max" data-precio="S/ 5,999">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1688052717085-23f6b1e1aee8?q=80&w=400" alt="iPhone 15 Pro Max"/></div>
         <div class="name">iPhone 15 Pro Max</div>
         <div class="price">S/ 5,999</div>
-        <div class="specs">8GB RAM · 512GB · Cámara 48MP · iOS · Garantía</div>
+        <div class="specs">8GB RAM · 512GB · Cámara 48MP · iOS</div>
         <div class="actions">
           <button class="btn btn-primary comprar">Comprar</button>
-          <a class="btn btn-ghost ws-link" href="#" target="_blank">
+          <a class="btn btn-whatsapp ws-link" href="#" target="_blank">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:16px;height:16px;" alt="WhatsApp"/> WhatsApp
           </a>
         </div>
       </article>
-
-      <!-- PRODUCTO 3 -->
-      <article class="card" data-nombre="Xiaomi 14 Ultra" data-precio="S/ 3,299">
-        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1688052717085-23f6b1e1aee8?q=80&w=400&auto=format&fit=crop" alt="Xiaomi 14 Ultra"/></div>
-        <div class="name">Xiaomi 14 Ultra</div>
-        <div class="price">S/ 3,299</div>
-        <div class="specs">12GB RAM · 256GB · Cámara 200MP · MIUI 16 · Garantía</div>
-        <div class="actions">
-          <button class="btn btn-primary comprar">Comprar</button>
-          <a class="btn btn-ghost ws-link" href="#" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:16px;height:16px;" alt="WhatsApp"/> WhatsApp
-          </a>
-        </div>
-      </article>
-
     </div>
     <p style="font-size:12px;color:#c7dbff;margin-top:12px">*Consulta cobertura y condiciones. Imágenes referenciales.</p>
   </section>
@@ -146,21 +155,33 @@
 </a>
 
 <script>
-  (function(){
-    document.getElementById('year').textContent = new Date().getFullYear();
-    const baseWa = (msg="Hola")=>`https://wa.me/${MI_WHATSAPP}?text=${encodeURIComponent(msg)}`;
-    ['btn-whatsapp-top','btn-whatsapp-hero','wa-float'].forEach(id=>{
-      const a=document.getElementById(id);
-      if(a)a.href = baseWa("Hola, vengo de la web UVEPROTECH")
+(function(){
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const baseWa = (msg="Hola")=>`https://wa.me/${MI_WHATSAPP}?text=${encodeURIComponent(msg)}`;
+  ['btn-whatsapp-top','wa-float'].forEach(id=>{
+    const a=document.getElementById(id);
+    if(a)a.href = baseWa("Hola, vengo de la web UVEPROTECH")
+  });
+
+  // Botones WhatsApp de cada producto y Comprar
+  document.querySelectorAll('#lista-productos .card').forEach(card=>{
+    const nombre = card.dataset.nombre;
+    const precio = card.dataset.precio;
+    const msg = `Hola, me interesa el *${nombre}* (${precio}). ¿Está disponible?`;
+    card.querySelector('.comprar').addEventListener('click',()=>{ window.open(baseWa(msg),'_blank') });
+    card.querySelector('.ws-link').href = baseWa(msg);
+  });
+
+  // Filtrar productos por gama
+  document.querySelectorAll('.gama-group .btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const gama = btn.dataset.gama;
+      document.querySelectorAll('#lista-productos .card').forEach(card=>{
+        card.style.display = (card.dataset.gama===gama) ? 'flex' : 'none';
+      });
     });
-    document.querySelectorAll('#lista-productos .card').forEach(card=>{
-      const nombre = card.dataset.nombre || card.querySelector('.name').textContent;
-      const precio = card.dataset.precio || card.querySelector('.price').textContent;
-      const msg = `Hola, me interesa el *${nombre}* (${precio}). ¿Está disponible?`;
-      card.querySelector('.comprar').addEventListener('click',()=>{ window.open(baseWa(msg),'_blank') });
-      card.querySelector('.ws-link').href = baseWa(msg);
-    });
-  })();
+  });
+})();
 </script>
 </body>
 </html>
