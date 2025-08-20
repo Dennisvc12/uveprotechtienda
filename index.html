@@ -31,7 +31,7 @@ header{
   border-radius: var(--radius);box-shadow: var(--shadow);color:#e6f0ff;flex-wrap:wrap;
 }
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#e8f2ff;cursor:pointer;}
-/* QUITAR EL CUADRO BLANCO */
+/* quitamos el cuadrito blanco del logo */
 .logo{display:none;}
 .title{font-weight:800;letter-spacing:.2px;font-size: clamp(18px, 2.4vw, 22px)}
 .title small{display:block;font-weight:500;opacity:.8;font-size:12px;margin-top:2px}
@@ -45,15 +45,48 @@ header{
 .search-container input::placeholder{color:rgba(255,255,255,.7);}
 .btn{appearance:none;border:none;cursor:pointer;padding:10px 14px;border-radius:12px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;box-shadow:var(--shadow)}
 .btn-primary{background: linear-gradient(180deg, #60a5fa, #2563eb); color: white}
+.btn-ghost{background: rgba(255,255,255,.08); color:#e6f0ff; border:1px solid rgba(255,255,255,.2)}
 .btn-whatsapp{background:#25D366;color:white}
+.btn:hover{transform: translateY(-1px)}
 .hero-card{padding:22px;background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.18);backdrop-filter: blur(8px);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:12px}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
+.gama-group{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.grid{display:grid;grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));gap:16px;margin-top:12px}
+.card{display:flex;flex-direction:column;gap:10px;background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.88));border:1px solid rgba(15,23,42,.06);border-radius:16px;box-shadow: var(--shadow);padding:14px}
 .img-wrap{display:flex;align-items:center;justify-content:center;height:210px;border-radius:12px;background: radial-gradient(220px 160px at 50% 40%, #dbeafe, #eff6ff);overflow:hidden}
-.img-wrap img{max-width:92%;max-height:92%;object-fit:contain}
-.offer{display:flex;flex-direction:column;gap:12px;align-items:flex-start;background:linear-gradient(180deg,#2563eb,#60a5fa);padding:16px;border-radius:14px;color:white;box-shadow:var(--shadow)}
+.img-wrap img{max-width:92%;max-height:92%;object-fit:contain;filter: drop-shadow(0 10px 16px rgba(0,0,0,.15))}
+.name{font-weight:800;font-size:16px;color:#0b1724}
+.price{font-weight:800;color:#0b5ed7}
+.specs{font-size:13px;color:#334155;opacity:.9}
+.actions{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+.actions .btn{flex:1;justify-content:center}
+.offer{margin:0 0 12px;display:flex;gap:12px;align-items:center;background:linear-gradient(180deg,#2563eb,#60a5fa);padding:12px 16px;border-radius:14px;color:white;box-shadow:var(--shadow);}
+.offer img{width:64px;height:64px;border-radius:12px;object-fit:cover}
 footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
 .wa-float{position:fixed;right:18px;bottom:18px;background:#25D366;color:white;border-radius:999px;width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-weight:900;text-decoration:none;box-shadow:0 12px 26px rgba(0,0,0,.35)}
-@media(max-width:860px){.grid-2{grid-template-columns:1fr}}
+.wa-float:active{transform: translateY(1px)}
+
+/* layout en 2 columnas para compra inteligente + oferta, y para iphone + producto */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch;margin-bottom:16px}
+
+/* barra de navegación de gamas que aparece solo al entrar a una gama */
+#gama-navegacion{
+  display:none; /* oculta en inicio */
+  margin:0 0 12px 0;
+  padding:10px 12px;
+  background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));
+  border:1px solid rgba(255,255,255,.18);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+#gama-navegacion .gama-group{margin:0;justify-content:center}
+
+@media (max-width: 860px){
+  .grid-2{grid-template-columns:1fr}
+  .actions .btn{flex:100%}
+  .search-container input{width:140px;}
+  .offer{flex-direction:column;align-items:flex-start}
+}
 </style>
 </head>
 <body>
@@ -65,15 +98,26 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
     </a>
     <div class="search-container">
       <input type="text" id="buscador" placeholder="Buscar productos...">
-      <a class="btn btn-whatsapp" href="https://wa.me/51949030039?text=Hola,%20quiero%20más%20información" target="_blank">WhatsApp</a>
+      <a class="btn btn-whatsapp" href="https://wa.me/51949030039?text=Hola,%20quiero%20m%C3%A1s%20informaci%C3%B3n" target="_blank">WhatsApp</a>
     </div>
   </header>
 
-  <!-- Compra inteligente + Oferta en 2 columnas -->
-  <section class="grid-2">
+  <!-- Barra de navegación de gamas (oculta al inicio) -->
+  <section class="hero-card" id="gama-navegacion">
+    <div class="gama-group">
+      <button class="btn btn-primary" id="btn-inicio">Inicio</button>
+      <button class="btn btn-primary" data-gama="baja">Gama baja</button>
+      <button class="btn btn-primary" data-gama="media">Gama media</button>
+      <button class="btn btn-primary" data-gama="alta">Gama alta</button>
+      <button class="btn btn-primary" data-gama="iphone">iPhones</button>
+    </div>
+  </section>
+
+  <!-- Compra inteligente (izquierda) + Oferta del día (derecha) -->
+  <section class="grid-2" id="fila-1">
     <div class="hero hero-card" id="inicio-cuadro">
       <h1>Compra inteligente, entrega rápida en Pisco</h1>
-      <div class="gama-group" style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+      <div class="gama-group">
         <button class="btn btn-primary" data-gama="baja">Gama baja</button>
         <button class="btn btn-primary" data-gama="media">Gama media</button>
         <button class="btn btn-primary" data-gama="alta">Gama alta</button>
@@ -90,8 +134,8 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
     </section>
   </section>
 
-  <!-- Imagen iPhone + producto en 2 columnas -->
-  <section class="grid-2">
+  <!-- Imagen iPhone (izquierda) + Producto destacado (derecha) -->
+  <section class="grid-2" id="fila-2">
     <div class="hero hero-card" id="img-iphone">
       <div class="img-wrap" style="height:260px">
         <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1000&auto=format&fit=crop" alt="Celular moderno"/>
@@ -122,39 +166,45 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
     if(a) a.href = baseWa("Hola, estoy interesado en la oferta del Samsung Galaxy S24 Ultra");
   });
 
+  // --- Datos (3 por gama, como pediste) ---
   const productosPorGama = {
     baja:[
-      {nombre:"Samsung Galaxy A14", precio:"S/ 799", img:"https://images.unsplash.com/photo-1580910051071-4b7ab3e16e84?q=80&w=400", specs:"4GB RAM · 64GB · Cámara 50MP · Android"},
-      {nombre:"Xiaomi Redmi 12", precio:"S/ 699", img:"https://images.unsplash.com/photo-1611095973516-445c7c97f60b?q=80&w=400", specs:"4GB RAM · 128GB · Cámara 50MP · MIUI"},
-      {nombre:"Motorola G32", precio:"S/ 749", img:"https://images.unsplash.com/photo-1612292299840-395d2ed9f8cb?q=80&w=400", specs:"4GB RAM · 64GB · Cámara 50MP · Android"}
+      {nombre:"Samsung Galaxy A14", precio:"S/ 799", img:"", specs:"4GB RAM · 64GB · Cámara 50MP · Android"},
+      {nombre:"Xiaomi Redmi 12", precio:"S/ 699", img:"", specs:"4GB RAM · 128GB · Cámara 50MP · MIUI"},
+      {nombre:"Motorola G32", precio:"S/ 749", img:"", specs:"4GB RAM · 64GB · Cámara 50MP · Android"}
     ],
     media:[
-      {nombre:"Samsung Galaxy S23", precio:"S/ 2,199", img:"https://images.unsplash.com/photo-1687658620843-7f2abf1c99f1?q=80&w=400", specs:"8GB RAM · 128GB · Cámara 50MP · Android"},
-      {nombre:"Xiaomi 13", precio:"S/ 1,999", img:"https://images.unsplash.com/photo-1685306144142-89a0243d08e7?q=80&w=400", specs:"8GB RAM · 256GB · Cámara 50MP · MIUI"},
-      {nombre:"Motorola Edge 40", precio:"S/ 1,899", img:"https://images.unsplash.com/photo-1686822452625-7b9e3d6bbf7c?q=80&w=400", specs:"8GB RAM · 128GB · Cámara 50MP · Android"}
+      {nombre:"Samsung Galaxy S23", precio:"S/ 2,199", img:"", specs:"8GB RAM · 128GB · Cámara 50MP · Android"},
+      {nombre:"Xiaomi 13", precio:"S/ 1,999", img:"", specs:"8GB RAM · 256GB · Cámara 50MP · MIUI"},
+      {nombre:"Motorola Edge 40", precio:"S/ 1,899", img:"", specs:"8GB RAM · 128GB · Cámara 50MP · Android"}
     ],
     alta:[
-      {nombre:"Samsung Galaxy S24 Ultra", precio:"S/ 4,899", img:"https://images.unsplash.com/photo-1610945264541-a44bd3b6e60e?q=80&w=400", specs:"12GB RAM · 256GB · Cámara 200MP · Snapdragon"},
-      {nombre:"Xiaomi 14 Pro", precio:"S/ 4,499", img:"https://images.unsplash.com/photo-1687532553843-fd4bb9455c62?q=80&w=400", specs:"12GB RAM · 512GB · Cámara 200MP · MIUI"},
-      {nombre:"Motorola Edge 50 Pro", precio:"S/ 4,299", img:"https://images.unsplash.com/photo-1687022253450-b5f2b6f5a8c1?q=80&w=400", specs:"12GB RAM · 256GB · Cámara 200MP · Android"}
+      {nombre:"Samsung Galaxy S24 Ultra", precio:"S/ 4,899", img:"", specs:"12GB RAM · 256GB · Cámara 200MP · Snapdragon"},
+      {nombre:"Xiaomi 14 Pro", precio:"S/ 4,499", img:"", specs:"12GB RAM · 512GB · Cámara 200MP · MIUI"},
+      {nombre:"Motorola Edge 50 Pro", precio:"S/ 4,299", img:"", specs:"12GB RAM · 256GB · Cámara 200MP · Android"}
     ],
     iphone:[
-      {nombre:"iPhone 15 Pro Max", precio:"S/ 5,999", img:"https://images.unsplash.com/photo-1688052717085-23f6b1e1aee8?q=80&w=400", specs:"8GB RAM · 512GB · Cámara 48MP · iOS"},
-      {nombre:"iPhone 15 Pro", precio:"S/ 5,299", img:"https://images.unsplash.com/photo-1688052717084-1f6b1e1aee8?q=80&w=400", specs:"8GB RAM · 256GB · Cámara 48MP · iOS"},
-      {nombre:"iPhone 14 Plus", precio:"S/ 4,199", img:"https://images.unsplash.com/photo-1687012717088-21f6b1e1aee9?q=80&w=400", specs:"6GB RAM · 256GB · Cámara 48MP · iOS"}
+      {nombre:"iPhone 15 Pro Max", precio:"S/ 5,999", img:"", specs:"8GB RAM · 512GB · Cámara 48MP · iOS"},
+      {nombre:"iPhone 15 Pro", precio:"S/ 5,299", img:"", specs:"8GB RAM · 256GB · Cámara 48MP · iOS"},
+      {nombre:"iPhone 14 Plus", precio:"S/ 4,199", img:"", specs:"6GB RAM · 256GB · Cámara 48MP · iOS"}
     ]
   };
 
   const lista = document.getElementById('lista-productos');
+  const nav = document.getElementById('gama-navegacion');
+  const inicioCuadro = document.getElementById('inicio-cuadro');
+  const oferta = document.getElementById('oferta-del-dia');
+  const imgIphone = document.getElementById('img-iphone');
 
+  // Renderizador de productos (sin imágenes; se usa un emoji como ícono)
   function mostrarProductos(productos){
     lista.innerHTML = '';
     productos.forEach(p=>{
       const card = document.createElement('article');
       card.className = 'card';
       card.innerHTML = `
-        <div class="img-wrap">
-          <img src="${p.img}" alt="${p.nombre}">
+        <div class="img-wrap" aria-hidden="true" style="height:120px; background: radial-gradient(160px 120px at 50% 40%, #e8f1ff, #f5faff); color:#0b1724; font-size:64px;">
+          📱
         </div>
         <div class="name">${p.nombre}</div>
         <div class="price">${p.precio}</div>
@@ -169,32 +219,75 @@ footer{color:#bfd7ff;opacity:.9;text-align:center;padding:24px 0 8px}
     });
   }
 
-  // Mostrar producto destacado (primero de gama alta)
+  // Estado: ir al inicio (muestra secciones y oculta barra)
+  function irAlInicio(){
+    // mostrar secciones de inicio
+    document.getElementById('fila-1').style.display = '';
+    document.getElementById('fila-2').style.display = '';
+    inicioCuadro.style.display = '';
+    oferta.style.display = '';
+    imgIphone.style.display = '';
+    // ocultar barra de navegación
+    nav.style.display = 'none';
+    // producto destacado por defecto (primero de alta)
+    mostrarProductos([productosPorGama.alta[0]]);
+    // limpiar buscador
+    buscador.value = '';
+  }
+
+  // Mostrar producto destacado (inicio)
   mostrarProductos([productosPorGama.alta[0]]);
 
-  // Logo clicable regresa al inicio
-  document.getElementById('logo-principal').addEventListener('click',()=>{location.reload();});
+  // Logo → volver al inicio sin recargar
+  document.getElementById('logo-principal').addEventListener('click', (e)=>{ e.preventDefault(); irAlInicio(); });
 
-  // Botones de gama
+  // Al hacer clic en los botones de gamas del cuadro principal
   document.querySelectorAll('#inicio-cuadro .btn-primary').forEach(btn=>{
     btn.addEventListener('click',()=>{
       const gama = btn.getAttribute('data-gama');
-      document.getElementById('inicio-cuadro').style.display='none';
-      document.getElementById('oferta-del-dia').style.display='none';
-      document.getElementById('img-iphone').style.display='none';
+      // ocultar secciones de inicio y mostrar barra de navegación
+      document.getElementById('fila-1').style.display = 'none';
+      document.getElementById('fila-2').style.display = '';
+      nav.style.display = 'block';
+      // render de gama
       mostrarProductos(productosPorGama[gama]);
+      // llevar arriba
+      window.scrollTo({top:0,behavior:'smooth'});
     });
   });
 
-  // Buscador
+  // Botones de la barra de navegación (incluye Inicio)
+  document.getElementById('btn-inicio').addEventListener('click', irAlInicio);
+  document.querySelectorAll('#gama-navegacion .btn-primary[data-gama]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const gama = btn.getAttribute('data-gama');
+      // aseguramos que las filas visibles sean las de lista de productos
+      document.getElementById('fila-1').style.display = 'none';
+      document.getElementById('fila-2').style.display = '';
+      nav.style.display = 'block';
+      mostrarProductos(productosPorGama[gama]);
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+
+  // Buscador en tiempo real
   const buscador = document.getElementById('buscador');
   buscador.addEventListener('input',()=>{
-    const termino = buscador.value.toLowerCase();
+    const termino = buscador.value.toLowerCase().trim();
     let filtrados = [];
     Object.values(productosPorGama).flat().forEach(p=>{
       if(p.nombre.toLowerCase().includes(termino)) filtrados.push(p);
     });
+    if(termino==='')
+      return; // si se borra el texto, no tocamos la vista actual
+    // si el user está buscando, mostramos resultados (y mantenemos la barra tal cual esté)
     mostrarProductos(filtrados.length ? filtrados : [{nombre:"No se encontró producto", precio:"", img:"", specs:""}]);
+  });
+
+  // Botón flotante y oferta → WhatsApp preset
+  ['wa-float','btn-oferta'].forEach(id=>{
+    const a=document.getElementById(id);
+    if(a) a.href = baseWa("Hola, estoy interesado en la oferta del Samsung Galaxy S24 Ultra");
   });
 
 })();
